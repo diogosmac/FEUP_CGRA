@@ -23,6 +23,9 @@ class MyScene extends CGFscene {
         //Initialize scene objects
         this.axis = new CGFaxis(this);
         this.prism = new MyPrism(this, 8);
+        this.treeGroup = new MyTreeGroupPatch(this, 1.5, 0.25, 3, 0.75, 1, 1);
+        this.treeRow = new MyTreeRowPatch(this, 1.5, 0.25, 3, 0.75, 1, 1);
+        // FALTAM AS TEXTURAS
 
         //Objects connected to MyInterface
         this.displayNormals = false;
@@ -66,12 +69,31 @@ class MyScene extends CGFscene {
 
         this.pushMatrix();
 
-        if (this.displayNormals)
-            this.prism.enableNormalViz();
-        else
-            this.prism.disableNormalViz();
+        this.scale(0.5, 0.5, 0.5);
 
-        this.prism.display();
+        if (this.displayNormals) {
+            this.prism.enableNormalViz();
+            this.treeGroup.enableNormalViz();
+        }
+        else {
+            this.prism.disableNormalViz();
+            this.treeGroup.disableNormalViz();
+        }
+
+        // this.pushMatrix();
+        // this.translate(0, 0, 0);
+        // this.prism.display();
+        // this.popMatrix();
+
+        this.pushMatrix();
+        this.translate(0, 0, -4);
+        this.treeGroup.display();
+        this.popMatrix();
+
+        this.pushMatrix();
+        this.translate(0, 0, 4);
+        this.treeRow.display();
+        this.popMatrix();
 
         this.popMatrix();
 
