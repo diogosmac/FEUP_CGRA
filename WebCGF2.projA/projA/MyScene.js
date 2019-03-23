@@ -74,16 +74,19 @@ class MyScene extends CGFscene {
         if (this.displayNormals) {
             this.prism.enableNormalViz();
             this.treeGroup.enableNormalViz();
+            this.treeRow.enableNormalViz();
         }
         else {
             this.prism.disableNormalViz();
             this.treeGroup.disableNormalViz();
+            this.treeRow.disableNormalViz();
         }
 
-        // this.pushMatrix();
-        // this.translate(0, 0, 0);
-        // this.prism.display();
-        // this.popMatrix();
+        this.pushMatrix();
+        this.translate(-3, 0, 1.75);
+        this.scale(2, 2, 2);
+        this.prism.display();
+        this.popMatrix();
 
         this.pushMatrix();
         this.translate(0, 0, -4);
