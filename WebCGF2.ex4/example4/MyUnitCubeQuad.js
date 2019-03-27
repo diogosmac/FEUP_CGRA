@@ -39,6 +39,9 @@ class MyUnitCubeQuad extends CGFobject {
         if (this.scene.nearestFilter) {
             this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
         }
+        else {
+            this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.LINEAR);
+        }
 
         this.scene.pushMatrix();
         this.scene.rotate(Math.PI/2, 1, 0, 0);
@@ -50,6 +53,9 @@ class MyUnitCubeQuad extends CGFobject {
         
         if (this.scene.nearestFilter) {
             this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
+        }
+        else {
+            this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.LINEAR);
         }
 
         this.scene.pushMatrix();
@@ -79,6 +85,9 @@ class MyUnitCubeQuad extends CGFobject {
 
         if (this.scene.nearestFilter) {
             this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
+        }
+        else {
+            this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.LINEAR);
         }
 
         this.scene.pushMatrix();
