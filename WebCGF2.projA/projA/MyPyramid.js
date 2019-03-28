@@ -13,9 +13,12 @@ class MyPyramid extends CGFobject {
         this.vertices = [];
         this.indices = [];
         this.normals = [];
+        this.texCoords = [];
 
         var ang = 0;
         var alphaAng = 2*Math.PI/this.slices;
+
+        var faceWidth = 1 / this.slices;
 
         for(var i = 0; i < this.slices; i++){
             // All vertices have to be declared for a given face
@@ -56,6 +59,14 @@ class MyPyramid extends CGFobject {
             this.indices.push(3*i, (3*i+1) , (3*i+2) );
 
             ang+=alphaAng;
+
+            var currentCoord = [
+                0.5, 0,
+                i * faceWidth, 1,
+                (i + 1) * faceWidth, 1
+            ];
+
+            this.texCoords.push(...currentCoord);
         }
 
         this.primitiveType = this.scene.gl.TRIANGLES;

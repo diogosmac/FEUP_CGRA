@@ -12,6 +12,9 @@ class MyPrism extends CGFobject {
         this.vertices = [];
         this.indices = [];
         this.normals = [];
+        this.texCoords = [];
+
+        var faceWidth = 1 / this.slices;
 
         var ang = 0;
         var deltaAng = 2*Math.PI/this.slices;
@@ -53,6 +56,15 @@ class MyPrism extends CGFobject {
 
             this.indices.push((4*i+2), (4*i+1), (4*i));
             this.indices.push((4*i+3), (4*i+2), (4*i));
+
+            var currentCoord = [
+                i * faceWidth, 0,
+                (i + 1) * faceWidth, 0,
+                (i + 1) * faceWidth, 1,
+                i * faceWidth, 1,
+            ];
+
+            this.texCoords.push(...currentCoord);
 
         }
 

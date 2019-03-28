@@ -11,6 +11,7 @@ class MyScene extends CGFscene {
         this.initCameras();
         this.initLights();
         this.initMaterials();
+        this.initArrays();
 
         //Background color
         this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
@@ -19,12 +20,14 @@ class MyScene extends CGFscene {
         this.gl.enable(this.gl.DEPTH_TEST);
         this.gl.enable(this.gl.CULL_FACE);
         this.gl.depthFunc(this.gl.LEQUAL);
+        this.enableTextures(true);
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
         this.prism = new MyPrism(this, 8);
-        this.treeGroup = new MyTreeGroupPatch(this, 1.5, 0.25, 3, 0.75, 1, 1);
-        this.treeRow = new MyTreeRowPatch(this, 1.5, 0.25, 3, 0.75, 1, 1);
+        this.pyramid = new MyPyramid(this, 5, 1);
+        this.treeGroup = new MyTreeGroupPatch(this, 1.5, 0.25, 3, 0.75, "images/mineBottom.png", "images/mineTop.png");
+        this.treeRow = new MyTreeRowPatch(this, 1.5, 0.25, 3, 0.75, "images/mineBottom.png", "images/mineTop.png");
         // FALTAM AS TEXTURAS
 
         //Objects connected to MyInterface
@@ -40,6 +43,14 @@ class MyScene extends CGFscene {
         this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
     }
     initMaterials() {
+        this.prismTest = new CGFappearance(this);
+        this.prismTest.setAmbient(0.1, 0.1, 0.1, 1);
+        this.prismTest.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.prismTest.setSpecular(0.1, 0.1, 0.1, 1);
+        this.prismTest.setShininess(10.0);
+        this.prismTest.loadTexture("images/tangram-lines.png");
+    }
+    initArrays() {
 
     }
     setDefaultAppearance() {
@@ -85,7 +96,14 @@ class MyScene extends CGFscene {
         this.pushMatrix();
         this.translate(-3, 0, 1.75);
         this.scale(2, 2, 2);
+        this.prismTest.apply();
         this.prism.display();
+        this.popMatrix();
+
+        this.pushMatrix();
+        this.translate(6, 0, 0);
+        this.scale(4, 4, 4);
+        this.pyramid.display(); 
         this.popMatrix();
 
         this.pushMatrix();

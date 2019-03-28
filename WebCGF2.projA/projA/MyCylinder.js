@@ -12,11 +12,14 @@ class MyCylinder extends CGFobject {
         this.vertices = [];
         this.indices = [];
         this.normals = [];
+        this.texCoords = [];
 
         var ang = 0;
         var deltaAng = 2 * Math.PI / this.slices; //angle diference between vertices
 
-        for(var i = 0; i < this.slices; i++, ang += deltaAng) {
+        var faceWidth = 1 / this.slices;
+
+        for(var i = 0; i <= this.slices; i++, ang += deltaAng) {
 
             var cos = Math.cos(ang);
             var sin = Math.sin(ang);
@@ -35,9 +38,19 @@ class MyCylinder extends CGFobject {
             this.normals.push(...normal);
 
 
-            //define a face
-            this.indices.push(2*i, (2*i+1) % (this.slices * 2), (2*i+3) % (this.slices * 2));
-            this.indices.push(2*i, (2*i+3) % (this.slices * 2), (2*i+2) % (this.slices * 2));
+            // only once for each pair of vertices (final pair only used for proper texturing)
+            if (i < this.slices) {
+                // define a face 
+                this.indices.push(2*i, (2*i+1), (2*i+3));
+                this.indices.push(2*i, (2*i+3), (2*i+2));
+            }
+
+            var currentCoord = [
+                1 - (i * faceWidth), 1,
+                1 - (i * faceWidth), 0
+            ];
+
+            this.texCoords.push(...currentCoord);
         }
 
         this.primitiveType = this.scene.gl.TRIANGLES;
