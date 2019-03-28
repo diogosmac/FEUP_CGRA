@@ -11,7 +11,6 @@ class MyScene extends CGFscene {
         this.initCameras();
         this.initLights();
         this.initMaterials();
-        this.initArrays();
 
         //Background color
         this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
@@ -36,22 +35,63 @@ class MyScene extends CGFscene {
     initLights() {
         this.lights[0].setPosition(15, 2, 5, 1);
         this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
+        // this.lights[0].disable();
         this.lights[0].enable();
+        this.lights[0].setVisible(true);
         this.lights[0].update();
+
+        this.lights[1].setPosition(-2, 3, 2, 1);
+        this.lights[1].setDiffuse(1.0, 1.0, 1.0, 1.0);
+        this.lights[1].setSpecular(1.0, 1.0, 1.0, 1.0);
+        this.lights[1].enable();
+        this.lights[1].setVisible(true);
+        this.lights[1].update();
+
+        this.lights[2].setPosition(3, 3, 2, 1);
+        this.lights[2].setDiffuse(1.0, 1.0, 1.0, 1.0);
+        this.lights[2].setSpecular(1.0, 1.0, 1.0, 1.0);
+        this.lights[2].enable();
+        this.lights[2].setVisible(true);
+        this.lights[2].update();
     }
     initCameras() {
         this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
     }
     initMaterials() {
-        this.prismTest = new CGFappearance(this);
-        this.prismTest.setAmbient(0.1, 0.1, 0.1, 1);
-        this.prismTest.setDiffuse(0.9, 0.9, 0.9, 1);
-        this.prismTest.setSpecular(0.1, 0.1, 0.1, 1);
-        this.prismTest.setShininess(10.0);
-        this.prismTest.loadTexture("images/tangram-lines.png");
-    }
-    initArrays() {
 
+        // this.prismTest = new CGFappearance(this);
+        // this.prismTest.setAmbient(0.1, 0.1, 0.1, 1);
+        // this.prismTest.setDiffuse(0.9, 0.9, 0.9, 1);
+        // this.prismTest.setSpecular(0.1, 0.1, 0.1, 1);
+        // this.prismTest.setShininess(10.0);
+        // this.prismTest.loadTexture("images/tangram-lines.png");
+
+        var standardMaterial = new CGFappearance(this);
+        standardMaterial.setAmbient(0.1, 0.1, 0.1, 1);
+        standardMaterial.setDiffuse(0.5, 0.5, 0.5, 1);
+        standardMaterial.setSpecular(0.5, 0.5, 0.5, 1);
+        standardMaterial.setShininess(10.0);
+        standardMaterial.loadTexture("images/tangram-lines.png");
+
+        var specularMaterial = new CGFappearance(this);
+        specularMaterial.setAmbient(0.1, 0.1, 0.1, 1);
+        specularMaterial.setDiffuse(0.3, 0.3, 0.3, 1);
+        specularMaterial.setSpecular(0.7, 0.7, 0.7, 1);
+        specularMaterial.setShininess(10.0);
+        specularMaterial.loadTexture("images/tangram-lines.png");
+
+        var matteMaterial = new CGFappearance(this);
+        matteMaterial.setAmbient(0.1, 0.1, 0.1, 1);
+        matteMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
+        matteMaterial.setSpecular(0.1, 0.1, 0.1, 1);
+        matteMaterial.setShininess(10.0);
+        matteMaterial.loadTexture("images/tangram-lines.png");
+
+        this.materials = [
+            standardMaterial,
+            specularMaterial,
+            matteMaterial
+        ];
     }
     setDefaultAppearance() {
         this.setAmbient(0.2, 0.4, 0.8, 1.0);
@@ -75,6 +115,8 @@ class MyScene extends CGFscene {
 
         //Apply default appearance
         // this.setDefaultAppearance();
+        this.lights[1].update();
+        this.lights[2].update();
 
         // ---- BEGIN Primitive drawing section
 
@@ -96,13 +138,14 @@ class MyScene extends CGFscene {
         this.pushMatrix();
         this.translate(-3, 0, 1.75);
         this.scale(2, 2, 2);
-        this.prismTest.apply();
+        this.materials[2].apply();
         this.prism.display();
         this.popMatrix();
 
         this.pushMatrix();
         this.translate(6, 0, 0);
         this.scale(4, 4, 4);
+        this.materials[1].apply();
         this.pyramid.display(); 
         this.popMatrix();
 
