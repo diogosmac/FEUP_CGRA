@@ -23,6 +23,14 @@ class MyUnitCubeQuad extends CGFobject {
         this.bottomTexture = new CGFtexture(this.scene, 'images/mineBottom.png');
     }
 
+    enableNormalViz() {
+        this.quad.enableNormalViz();
+    }
+    
+    disableNormalViz() {
+        this.quad.disableNormalViz();
+    }
+
     display() {
 
         this.material.setTexture(this.sideTexture);

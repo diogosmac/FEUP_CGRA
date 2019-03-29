@@ -23,10 +23,11 @@ class MyScene extends CGFscene {
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
-        this.prism = new MyPrism(this, 8);
-        this.pyramid = new MyPyramid(this, 5, 1);
+        // this.prism = new MyPrism(this, 8);
+        // this.pyramid = new MyPyramid(this, 5, 1);
         this.treeGroup = new MyTreeGroupPatch(this, 1.5, 0.25, 3, 0.75, "images/mineBottom.png", "images/mineTop.png");
         this.treeRow = new MyTreeRowPatch(this, 1.5, 0.25, 3, 0.75, "images/mineBottom.png", "images/mineTop.png");
+        this.house = new MyHouse(this, 5);
         // FALTAM AS TEXTURAS
 
         //Objects connected to MyInterface
@@ -125,41 +126,45 @@ class MyScene extends CGFscene {
         this.scale(0.5, 0.5, 0.5);
 
         if (this.displayNormals) {
-            this.prism.enableNormalViz();
+            // this.prism.enableNormalViz();
             this.treeGroup.enableNormalViz();
             this.treeRow.enableNormalViz();
+            this.house.enableNormalViz();
         }
         else {
-            this.prism.disableNormalViz();
+            // this.prism.disableNormalViz();
             this.treeGroup.disableNormalViz();
             this.treeRow.disableNormalViz();
+            this.house.disableNormalViz();
         }
 
-        this.pushMatrix();
-        this.translate(-3, 0, 1.75);
-        this.scale(2, 2, 2);
-        this.materials[2].apply();
-        this.prism.display();
-        this.popMatrix();
+        // this.pushMatrix();
+        // this.translate(-3, 0, 1.75);
+        // this.scale(2, 2, 2);
+        // this.materials[2].apply();
+        // this.prism.display();
+        // this.popMatrix();
+
+        // this.pushMatrix();
+        // this.translate(6, 0, 0);
+        // this.scale(4, 4, 4);
+        // this.materials[1].apply();
+        // this.pyramid.display(); 
+        // this.popMatrix();
 
         this.pushMatrix();
-        this.translate(6, 0, 0);
-        this.scale(4, 4, 4);
-        this.materials[1].apply();
-        this.pyramid.display(); 
-        this.popMatrix();
-
-        this.pushMatrix();
-        this.translate(0, 0, -4);
+        this.translate(3, 0, -10);
         this.treeGroup.display();
         this.popMatrix();
 
         this.pushMatrix();
-        this.translate(0, 0, 4);
+        this.translate(6, 0, -2);
         this.treeRow.display();
         this.popMatrix();
 
-        this.popMatrix();
+        // this.popMatrix();
+
+        this.house.display();
 
         // ---- END Primitive drawing section
     }
