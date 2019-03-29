@@ -27,7 +27,7 @@ class MyScene extends CGFscene {
         // this.pyramid = new MyPyramid(this, 5, 1);
         this.treeGroup = new MyTreeGroupPatch(this, 1.5, 0.25, 3, 0.75, "images/mineBottom.png", "images/mineTop.png");
         this.treeRow = new MyTreeRowPatch(this, 1.5, 0.25, 3, 0.75, "images/mineBottom.png", "images/mineTop.png");
-        this.house = new MyHouse(this, 5);
+        this.house = new MyHouse(this, 3.5);
         // FALTAM AS TEXTURAS
 
         //Objects connected to MyInterface
