@@ -11,7 +11,6 @@ class MyHouse extends CGFobject {
         this.cube = new MyUnitCubeQuad(this.scene); //will be used for the walls, porch, stairs, etc
         this.column = new MyPrism(this.scene, 6);
         this.roof = new MyPyramid(this.scene, 4, 1);
-        this.fence = new MyQuad(this.scene);
     }
 
     // initTextures() { //para guardar as texturas da casa
@@ -22,17 +21,16 @@ class MyHouse extends CGFobject {
         this.cube.enableNormalViz();
         this.column.enableNormalViz();
         this.roof.enableNormalViz();
-        this.fence.enableNormalViz();
     }
     
     disableNormalViz() {
         this.cube.disableNormalViz();
         this.column.disableNormalViz();
         this.roof.disableNormalViz();
-        this.fence.disableNormalViz();
     }
 
     display() {
+        this.scene.pushMatrix();
         this.scene.scale(this.houseSize, this.houseSize, this.houseSize); //will scale all the house components
 
         //walls of the house (1st floor)
@@ -98,19 +96,67 @@ class MyHouse extends CGFobject {
         this.cube.display();
         this.scene.popMatrix();
 
-        //roof (FALTA CENTRAR BEM O TELHADO)
+        //column of the balcony (1 of 4)
         this.scene.pushMatrix();
-        this.scene.translate(-0.7, 3.6, -3.25);
-        // this.scene.translate(3, 0, 4);
-        this.scene.scale(2.8, 1, 1.77);
+        this.scene.translate(1, 2, 0.2);
+        this.scene.scale(1/7, 1.3, 1/7);
+        this.column.display();
+        this.scene.popMatrix();
+
+        //column of the balcony (2 of 4)
+        this.scene.pushMatrix();
+        this.scene.translate(-2.4, 2, 0.2);
+        this.scene.scale(1/7, 1.3, 1/7);
+        this.column.display();
+        this.scene.popMatrix();
+
+        //column of the balcony (3 of 4)
+        this.scene.pushMatrix();
+        this.scene.translate(-2.4, 2, -1.6);
+        this.scene.scale(1/7, 1.3, 1/7);
+        this.column.display();
+        this.scene.popMatrix();
+
+        //column of the balcony (4 of 4)
+        this.scene.pushMatrix();
+        this.scene.translate(1, 2, -1.6);
+        this.scene.scale(1/7, 1.3, 1/7);
+        this.column.display();
+        this.scene.popMatrix();
+
+        //roof of the balcony
+        this.scene.pushMatrix();
+        this.scene.translate(-0.7, 3.3, -0.75);
+        this.scene.scale(4, 0.3, 2.5);
+        this.scene.translate(0, 0.5, 0);
+        this.cube.display();
+        this.scene.popMatrix();
+
+        //roof of the house (FALTA ALINHAR)
+        this.scene.pushMatrix();
+        this.scene.translate(-0.7, 3.6, -2);
+        this.scene.scale(2.8, 1, 3.6);
         this.scene.rotate(Math.PI / 4, 0, 1, 0);
         this.roof.display();
         this.scene.popMatrix();
 
-        //fences
+        //little shed (walls)
         this.scene.pushMatrix();
-        this.scene.translate(3, 0, 4);
-        this.fence.display();
+        this.scene.translate(-4, 0, -2);
+        this.scene.scale(1.5, 1.5, 1.5);
+        this.scene.translate(0, 0.5, 0);
+        this.cube.display();
+        this.scene.popMatrix();
+
+        //little shed (roof) (FALTA ALINHAR O TELHADO)
+        this.scene.pushMatrix();
+        this.scene.translate(-4, 1.5, -2);
+        this.scene.scale(1.5, 1.5, 1.5);
+        this.scene.rotate(Math.PI / 4, 0, 1, 0);
+        this.roof.display();
+        this.scene.popMatrix();
+
+
         this.scene.popMatrix();
     }
 
