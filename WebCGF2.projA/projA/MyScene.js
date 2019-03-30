@@ -28,6 +28,7 @@ class MyScene extends CGFscene {
         this.treeGroup = new MyTreeGroupPatch(this, 1.5, 0.25, 3, 0.75, "images/mineBottom.png", "images/mineTop.png");
         this.treeRow = new MyTreeRowPatch(this, 1.5, 0.25, 3, 0.75, "images/mineBottom.png", "images/mineTop.png");
         this.house = new MyHouse(this, 3.5);
+        this.smallHouse = new MyHouse(this, 2);
         // FALTAM AS TEXTURAS
 
         //Objects connected to MyInterface
@@ -130,12 +131,14 @@ class MyScene extends CGFscene {
             this.treeGroup.enableNormalViz();
             this.treeRow.enableNormalViz();
             this.house.enableNormalViz();
+            this.smallHouse.enableNormalViz();
         }
         else {
             // this.prism.disableNormalViz();
             this.treeGroup.disableNormalViz();
             this.treeRow.disableNormalViz();
             this.house.disableNormalViz();
+            this.smallHouse.disableNormalViz();
         }
 
         // this.pushMatrix();
@@ -153,18 +156,26 @@ class MyScene extends CGFscene {
         // this.popMatrix();
 
         this.pushMatrix();
-        this.translate(3, 0, -10);
+        this.translate(-35, 0, -12);
+        this.scale(3.5, 3.5, 3.5);
         this.treeGroup.display();
         this.popMatrix();
 
         this.pushMatrix();
-        this.translate(6, 0, -2);
+        this.translate(-25, 0, -25);
+        this.scale(5, 5, 5);
         this.treeRow.display();
         this.popMatrix();
 
-        // this.popMatrix();
-
         this.house.display();
+
+        this.pushMatrix();
+        this.translate(-20, 0, 10);
+        this.rotate(Math.PI/2, 0, 1, 0);
+        this.smallHouse.display();
+        this.popMatrix();
+
+        this.popMatrix();
 
         // ---- END Primitive drawing section
     }
