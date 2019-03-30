@@ -132,7 +132,7 @@ class MyHouse extends CGFobject {
         this.cube.display();
         this.scene.popMatrix();
 
-        //roof of the house (FALTA ALINHAR)
+        //roof of the house
         this.scene.pushMatrix();
         this.scene.translate(-0.7, 3.6, -2);
         this.scene.scale(2.83, 1, 3.53);
@@ -148,7 +148,7 @@ class MyHouse extends CGFobject {
         this.cube.display();
         this.scene.popMatrix();
 
-        //little shed (roof) (FALTA ALINHAR O TELHADO)
+        //little shed (roof)
         this.scene.pushMatrix();
         this.scene.translate(-4, 1.5, -2);
         this.scene.scale(1.07, 1.07, 1.07);
@@ -159,8 +159,4 @@ class MyHouse extends CGFobject {
 
         this.scene.popMatrix();
     }
-
-
-
-
 }

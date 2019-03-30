@@ -29,6 +29,7 @@ class MyScene extends CGFscene {
         this.treeRow = new MyTreeRowPatch(this, 1.5, 0.25, 3, 0.75, "images/mineBottom.png", "images/mineTop.png");
         this.house = new MyHouse(this, 3.5);
         this.smallHouse = new MyHouse(this, 2);
+        this.hill = new MyVoxelHill(this, 4, 2);
         // FALTAM AS TEXTURAS
 
         //Objects connected to MyInterface
@@ -132,6 +133,7 @@ class MyScene extends CGFscene {
             this.treeRow.enableNormalViz();
             this.house.enableNormalViz();
             this.smallHouse.enableNormalViz();
+            this.hill.enableNormalViz();
         }
         else {
             // this.prism.disableNormalViz();
@@ -139,6 +141,7 @@ class MyScene extends CGFscene {
             this.treeRow.disableNormalViz();
             this.house.disableNormalViz();
             this.smallHouse.disableNormalViz();
+            this.hill.disableNormalViz();
         }
 
         // this.pushMatrix();
@@ -167,13 +170,19 @@ class MyScene extends CGFscene {
         this.treeRow.display();
         this.popMatrix();
 
+        this.pushMatrix();
+        this.translate(34, 0, 0);
         this.house.display();
+        this.popMatrix();
 
         this.pushMatrix();
         this.translate(-20, 0, 10);
         this.rotate(Math.PI/2, 0, 1, 0);
         this.smallHouse.display();
         this.popMatrix();
+
+        this.hill.display();
+
 
         this.popMatrix();
 
