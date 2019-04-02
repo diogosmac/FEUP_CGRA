@@ -137,6 +137,9 @@ class MyScene extends CGFscene {
             this.house.enableNormalViz();
             this.smallHouse.enableNormalViz();
             this.hill.enableNormalViz();
+            this.complexTree.enableNormalViz();
+            this.floor.enableNormalViz();
+            this.cubeMap.enableNormalViz();
         }
         else {
             // this.prism.disableNormalViz();
@@ -145,6 +148,9 @@ class MyScene extends CGFscene {
             this.house.disableNormalViz();
             this.smallHouse.disableNormalViz();
             this.hill.disableNormalViz();
+            this.complexTree.disableNormalViz();
+            this.floor.disableNormalViz();
+            this.cubeMap.disableNormalViz();
         }
 
         // this.pushMatrix();
@@ -207,7 +213,10 @@ class MyScene extends CGFscene {
         // it's a chris pine
         this.popMatrix();
 
+        this.pushMatrix();
+        this.cubeMap.material.apply();
         this.cubeMap.display();
+        this.popMatrix();
 
         this.popMatrix();
 
