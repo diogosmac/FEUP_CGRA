@@ -30,6 +30,9 @@ class MyScene extends CGFscene {
         this.house = new MyHouse(this, 3.5);
         this.smallHouse = new MyHouse(this, 2);
         this.hill = new MyVoxelHill(this, 4, 2);
+        this.complexTree = new MyComplexTree(this, 1.5, 0.25, 3, 0.75, "images/mineBottom.png", "images/mineTop.png");
+        this.floor = new MyQuad(this);
+        this.cubeMap = new MyCubeMap(this);
         // FALTAM AS TEXTURAS
 
         //Objects connected to MyInterface
@@ -158,6 +161,17 @@ class MyScene extends CGFscene {
         // this.pyramid.display(); 
         // this.popMatrix();
 
+
+        this.pushMatrix();
+
+        this.scale(100, 100, 100);
+        this.rotate(-Math.PI / 2, 1, 0, 0);
+        this.floor.display();
+        this.rotate(Math.PI, 0, 1, 0);
+        this.floor.display();
+
+        this.popMatrix();
+
         this.pushMatrix();
         this.translate(-35, 0, -12);
         this.scale(3.5, 3.5, 3.5);
@@ -181,8 +195,19 @@ class MyScene extends CGFscene {
         this.smallHouse.display();
         this.popMatrix();
 
+        
         this.hill.display();
 
+
+        this.pushMatrix();
+        
+        this.translate(0, 8, 0);
+        this.scale(3.5, 3.5, 3.5);
+        this.complexTree.display();
+        // it's a chris pine
+        this.popMatrix();
+
+        this.cubeMap.display();
 
         this.popMatrix();
 
