@@ -10,39 +10,42 @@ class MyCubeMap extends CGFobject {
             this.initMaterials();
 	}
 	initBuffers() {
+
+            var side = 600;
+
 		this.vertices = [ // cada vertice vai ter 3 normais porque vai estar em 3 faces com orientacoes diferentes
             
-                  -200, -200, -200, 
-                  -200, -200, -200,
-                  -200, -200, -200,
+                  -(side/2), -(side/2), -(side/2), 
+                  -(side/2), -(side/2), -(side/2),
+                  -(side/2), -(side/2), -(side/2),
       
-                  200, -200, -200,  
-                  200, -200, -200,
-                  200, -200, -200,
+                  (side/2), -(side/2), -(side/2),  
+                  (side/2), -(side/2), -(side/2),
+                  (side/2), -(side/2), -(side/2),
       
-                  -200, 200, -200,  
-                  -200, 200, -200,
-                  -200, 200, -200,
+                  -(side/2), (side/2), -(side/2),  
+                  -(side/2), (side/2), -(side/2),
+                  -(side/2), (side/2), -(side/2),
       
-                  200, 200, -200,  
-                  200, 200, -200,
-                  200, 200, -200,
+                  (side/2), (side/2), -(side/2),  
+                  (side/2), (side/2), -(side/2),
+                  (side/2), (side/2), -(side/2),
                   
-                  -200, -200, 200,
-                  -200, -200, 200,
-                  -200, -200, 200,
+                  -(side/2), -(side/2), (side/2),
+                  -(side/2), -(side/2), (side/2),
+                  -(side/2), -(side/2), (side/2),
       
-                  200, -200, 200,
-                  200, -200, 200,
-                  200, -200, 200,
+                  (side/2), -(side/2), (side/2),
+                  (side/2), -(side/2), (side/2),
+                  (side/2), -(side/2), (side/2),
       
-                  -200, 200, 200,
-                  -200, 200, 200,
-                  -200, 200, 200,
+                  -(side/2), (side/2), (side/2),
+                  -(side/2), (side/2), (side/2),
+                  -(side/2), (side/2), (side/2),
       
-                  200, 200, 200,
-                  200, 200, 200,
-                  200, 200, 200
+                  (side/2), (side/2), (side/2),
+                  (side/2), (side/2), (side/2),
+                  (side/2), (side/2), (side/2)
 		];
 
             this.normals = [
@@ -101,38 +104,40 @@ class MyCubeMap extends CGFobject {
                   8, 20, 2 // perpendicular ao eixo do x, no lado negativo
             ];
 
-            this.texCoords = [
-                  1/4, 2/3,   // 0
-                  1/4, 2/3,   // 1
-                  1/4, 2/3,   // 2
+            var margin = 0.0005;
 
-                  0, 2/3,     // 3
-                  1/4, 1,     // 4
-                  1, 2/3,     // 5
+            this.texCoords = [
+                  1/4 + margin,     2/3 - margin,     // 0
+                  1/4 + margin,     2/3 - margin,     // 1
+                  1/4 + margin,     2/3 - margin,     // 2
+
+                  0,                2/3 - margin,     // 3
+                  1/4 + margin,     1,                // 4
+                  1,                2/3 - margin,     // 5
                   
-                  1/4, 1/3,   // 6
-                  1/4, 1/3,   // 7
-                  1/4, 1/3,   // 8
+                  1/4 + margin,     1/3 + margin,     // 6
+                  1/4 + margin,     1/3 + margin,     // 7
+                  1/4 + margin,     1/3 + margin,     // 8
                   
-                  0, 1/3,     // 9
-                  1/4, 0,     // 10
-                  1, 1/3,     // 11
+                  0,                1/3 + margin,     // 9
+                  1/4 + margin,     0,                // 10
+                  1,                1/3 + margin,     // 11
                   
-                  1/2, 2/3,   // 12
-                  1/2, 2/3,   // 13
-                  1/2, 2/3,   // 14
+                  1/2 - margin,     2/3 - margin,     // 12
+                  1/2 - margin,     2/3 - margin,     // 13
+                  1/2 - margin,     2/3 - margin,     // 14
                   
-                  3/4, 2/3,   // 15
-                  1/2, 1,     // 16
-                  3/4, 2/3,   // 17
+                  3/4,              2/3 - margin,     // 15
+                  1/2 - margin,     1,                // 16
+                  3/4,              2/3 - margin,     // 17
                   
-                  1/2, 1/3,   // 18
-                  1/2, 1/3,   // 19
-                  1/2, 1/3,   // 20
+                  1/2 - margin,     1/3 + margin,     // 18
+                  1/2 - margin,     1/3 + margin,     // 19
+                  1/2 - margin,     1/3 + margin,     // 20
                   
-                  3/4, 1/3,   // 21
-                  1/2, 0,     // 22
-                  3/4, 1/3    // 23
+                  3/4,              1/3 + margin,     // 21
+                  1/2 - margin,     0,                // 22
+                  3/4,              1/3 + margin      // 23
             ]
 
 		this.primitiveType = this.scene.gl.TRIANGLES;
@@ -144,6 +149,7 @@ class MyCubeMap extends CGFobject {
             this.material.setDiffuse(0.7, 0.7, 0.7, 1.0);
             this.material.setSpecular(0.1, 0.1, 0.1, 1.0);
             this.material.setShininess(10.0);
-            this.material.loadTexture('images/testCubeMap.png');
+            this.material.loadTexture('images/CubeMap.png');
+            this.material.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
       }
 }

@@ -18,23 +18,8 @@ class MyComplexTree extends CGFobject {
         this.trunk = new MyCylinder(this.scene, 10);
         this.treeTop = new MyCone(this.scene, 10, 1);
         
-        this.initMaterials();
     }
-    initMaterials() {
-        this.treeTopMaterial = new CGFappearance(this.scene);
-        this.treeTopMaterial.setAmbient(0.1, 0.1, 0.1, 1);
-        this.treeTopMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
-        this.treeTopMaterial.setSpecular(0.1, 0.1, 0.1, 1);
-        this.treeTopMaterial.setShininess(10.0);
-        this.treeTopMaterial.loadTexture("images/mineTop.png");
 
-        this.trunkMaterial = new CGFappearance(this.scene);
-        this.trunkMaterial.setAmbient(0.1, 0.1, 0.1, 1);
-        this.trunkMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
-        this.trunkMaterial.setSpecular(0.1, 0.1, 0.1, 1);
-        this.trunkMaterial.setShininess(10.0);
-        this.trunkMaterial.loadTexture("images/mineBottom.png");
-    }
     enableNormalViz() {
         this.trunk.enableNormalViz();
         this.treeTop.enableNormalViz();
@@ -46,17 +31,21 @@ class MyComplexTree extends CGFobject {
     display() {
         this.scene.pushMatrix();
         this.scene.scale(this.trunkRadius, this.trunkHeight, this.trunkRadius);
-        this.trunkMaterial.apply();
 
         // while mineToup
-        this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
+        // this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
+
+        this.scene.diffuseMaterial.setTexture(this.trunkTexture);
+        this.scene.diffuseMaterial.apply();
 
         this.trunk.display();
         this.scene.popMatrix();
 
-        this.treeTopMaterial.apply();
         // while mineToup
-        this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
+        // this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
+
+        this.scene.diffuseMaterial.setTexture(this.treeTopTexture);
+        this.scene.diffuseMaterial.apply();
 
         for (var i = 0; i < 3; i++) {
             this.scene.pushMatrix();

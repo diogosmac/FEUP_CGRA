@@ -12,7 +12,9 @@ class MyVoxelHill extends CGFobject {
     }
 
     // initTextures() {
-
+    //     this.sideTexture = new CGFtexture(this.scene, 'images/mineSide.png');
+    //     this.topTexture = new CGFtexture(this.scene, 'images/mineTop.png');
+    //     this.bottomTexture = new CGFtexture(this.scene, 'images/mineBottom.png');
     // }
 
     enableNormalViz() {

@@ -10,7 +10,7 @@ class MyScene extends CGFscene {
         super.init(application);
         this.initCameras();
         this.initLights();
-        this.initMaterials();
+        this.initMaterialsAndTextures();
 
         //Background color
         this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
@@ -25,15 +25,17 @@ class MyScene extends CGFscene {
         this.axis = new CGFaxis(this);
         // this.prism = new MyPrism(this, 8);
         // this.pyramid = new MyPyramid(this, 5, 1);
-        this.treeGroup = new MyTreeGroupPatch(this, 1.5, 0.25, 3, 0.75, "images/trunkTexture.png", "images/mineTop.png");
-        this.treeRow = new MyTreeRowPatch(this, 1.5, 0.25, 3, 0.75, "images/trunkTexture.png", "images/mineTop.png");
+        this.treeGroup = new MyTreeGroupPatch(this, 1.5, 0.25, 3, 0.75, this.treeTrunkTexture, this.leavesTexture);
+        this.treeRow = new MyTreeRowPatch(this, 1.5, 0.25, 3, 0.75, this.treeTrunkTexture, this.leavesTexture);
         this.house = new MyHouse(this, 3.5);
         this.smallHouse = new MyHouse(this, 2);
         this.hill = new MyVoxelHill(this, 4, 2);
-        this.complexTree = new MyComplexTree(this, 1.5, 0.25, 3, 0.75, "images/mineBottom.png", "images/mineTop.png");
+        this.complexTree = new MyComplexTree(this, 1.5, 0.25, 3, 0.75, this.treeTrunkTexture, this.leavesTexture);
         this.floor = new MyQuad(this);
         this.cubeMap = new MyCubeMap(this);
         // FALTAM AS TEXTURAS
+
+        this.initObjectTextCoords();
 
         //Objects connected to MyInterface
         this.displayNormals = false;
@@ -64,42 +66,47 @@ class MyScene extends CGFscene {
     initCameras() {
         this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
     }
-    initMaterials() {
+    initMaterialsAndTextures() {
 
-        // this.prismTest = new CGFappearance(this);
-        // this.prismTest.setAmbient(0.1, 0.1, 0.1, 1);
-        // this.prismTest.setDiffuse(0.9, 0.9, 0.9, 1);
-        // this.prismTest.setSpecular(0.1, 0.1, 0.1, 1);
-        // this.prismTest.setShininess(10.0);
-        // this.prismTest.loadTexture("images/tangram-lines.png");
+        // Matterials
 
-        var standardMaterial = new CGFappearance(this);
-        standardMaterial.setAmbient(0.1, 0.1, 0.1, 1);
-        standardMaterial.setDiffuse(0.5, 0.5, 0.5, 1);
-        standardMaterial.setSpecular(0.5, 0.5, 0.5, 1);
-        standardMaterial.setShininess(10.0);
-        standardMaterial.loadTexture("images/tangram-lines.png");
+        this.diffuseMaterial = new CGFappearance(this);
+        this.diffuseMaterial.setAmbient(0.5, 0.5, 0.5, 1);
+        this.diffuseMaterial.setDiffuse(0.7, 0.7, 0.7, 1);
+        this.diffuseMaterial.setSpecular(0.2, 0.2, 0.2, 1);
+        this.diffuseMaterial.setShininess(10.0);
 
-        var specularMaterial = new CGFappearance(this);
-        specularMaterial.setAmbient(0.1, 0.1, 0.1, 1);
-        specularMaterial.setDiffuse(0.3, 0.3, 0.3, 1);
-        specularMaterial.setSpecular(0.7, 0.7, 0.7, 1);
-        specularMaterial.setShininess(10.0);
-        specularMaterial.loadTexture("images/tangram-lines.png");
+        this.specularMaterial = new CGFappearance(this);
+        this.specularMaterial.setAmbient(0.1, 0.1, 0.1, 1);
+        this.specularMaterial.setDiffuse(0.3, 0.3, 0.3, 1);
+        this.specularMaterial.setSpecular(0.8, 0.8, 0.8, 1);
+        this.specularMaterial.setShininess(10.0);
 
-        var matteMaterial = new CGFappearance(this);
-        matteMaterial.setAmbient(0.1, 0.1, 0.1, 1);
-        matteMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
-        matteMaterial.setSpecular(0.1, 0.1, 0.1, 1);
-        matteMaterial.setShininess(10.0);
-        matteMaterial.loadTexture("images/tangram-lines.png");
+        this.matteMaterial = new CGFappearance(this);
+        this.matteMaterial.setAmbient(0.1, 0.1, 0.1, 1);
+        this.matteMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.matteMaterial.setSpecular(0.1, 0.1, 0.1, 1);
+        this.matteMaterial.setShininess(10.0);
 
-        this.materials = [
-            standardMaterial,
-            specularMaterial,
-            matteMaterial
-        ];
+
+        // Textures
+
+        this.treeTrunkTexture = new CGFtexture(this, 'images/trunkTexture.png');
+        this.grassTexture = new CGFtexture(this, 'images/grassTexture.jpg');
+        this.leavesTexture = new CGFtexture(this, 'images/pineNeedles.jpg');
     }
+
+    initObjectTextCoords() {
+
+        this.floor.texCoords = [
+            0, 4,
+            4, 4,
+            0, 0,
+            4, 0
+        ];
+        this.floor.updateTexCoordsGLBuffers();
+    }
+
     updateTextures() {
         this.enableTextures(this.textsEnable);
     }
@@ -159,20 +166,9 @@ class MyScene extends CGFscene {
             this.cubeMap.disableNormalViz();
         }
 
-        // this.pushMatrix();
-        // this.translate(-3, 0, 1.75);
-        // this.scale(2, 2, 2);
-        // this.materials[2].apply();
-        // this.prism.display();
-        // this.popMatrix();
-
-        // this.pushMatrix();
-        // this.translate(6, 0, 0);
-        // this.scale(4, 4, 4);
-        // this.materials[1].apply();
-        // this.pyramid.display(); 
-        // this.popMatrix();
-
+        this.diffuseMaterial.setTexture(this.grassTexture);
+        this.diffuseMaterial.setTextureWrap('REPEAT', 'REPEAT');
+        this.diffuseMaterial.apply();
 
         this.pushMatrix();
 
