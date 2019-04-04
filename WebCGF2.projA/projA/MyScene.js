@@ -37,6 +37,7 @@ class MyScene extends CGFscene {
 
         //Objects connected to MyInterface
         this.displayNormals = false;
+        this.textsEnable = true;
     }
     initLights() {
         this.lights[0].setPosition(15, 2, 5, 1);
@@ -99,6 +100,11 @@ class MyScene extends CGFscene {
             matteMaterial
         ];
     }
+    updateTextures() {
+        this.enableTextures(this.textsEnable);
+    }
+
+
     setDefaultAppearance() {
         this.setAmbient(0.2, 0.4, 0.8, 1.0);
         this.setDiffuse(0.2, 0.4, 0.8, 1.0);
