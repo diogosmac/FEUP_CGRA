@@ -149,7 +149,7 @@ class MyCubeMap extends CGFobject {
             this.material.setDiffuse(0.7, 0.7, 0.7, 1.0);
             this.material.setSpecular(0.1, 0.1, 0.1, 1.0);
             this.material.setShininess(10.0);
-            this.material.loadTexture('images/CubeMap.png');
+            this.material.loadTexture('images/CubeMapLagoon.png');
             this.material.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
       }
 }
