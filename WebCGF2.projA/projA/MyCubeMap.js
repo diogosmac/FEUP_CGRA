@@ -144,12 +144,24 @@ class MyCubeMap extends CGFobject {
 		this.initGLBuffers();
       }
       initMaterials() {
-            this.material = new CGFappearance(this.scene);
-            this.material.setAmbient(0.6, 0.6, 0.6, 1.0);
-            this.material.setDiffuse(0.7, 0.7, 0.7, 1.0);
-            this.material.setSpecular(0.1, 0.1, 0.1, 1.0);
-            this.material.setShininess(10.0);
-            this.material.loadTexture('images/CubeMapLagoon.png');
-            this.material.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+            this.cubeMapMaterial = new CGFappearance(this.scene);
+            this.cubeMapMaterial.setAmbient(0.6, 0.6, 0.6, 1.0);
+            this.cubeMapMaterial.setDiffuse(0.7, 0.7, 0.7, 1.0);
+            this.cubeMapMaterial.setSpecular(0.1, 0.1, 0.1, 1.0);
+            this.cubeMapMaterial.setShininess(10.0);
+            this.cubeMapMaterial.loadTexture('images/CubeMap.png');
+            this.cubeMapMaterial.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
       }
+
+      changeTimeOfDay() {
+            if(this.scene.timeOfDay == 0) {
+                  this.cubeMapMaterial.loadTexture('images/CubeMap.png');
+                  this.cubeMapMaterial.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+            }
+            else {
+                  this.cubeMapMaterial.loadTexture('images/CubeMapLagoon.png');
+                  this.cubeMapMaterial.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+            }
+      }
+
 }

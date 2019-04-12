@@ -20,6 +20,8 @@ class MyInterface extends CGFinterface {
 
         this.gui.add(this.scene, 'textsEnable').name("Enable Textures").onChange(this.scene.updateTextures.bind(this.scene));
 
+        this.gui.add(this.scene, 'timeOfDay', this.scene.times).name("Time of day").onChange(this.scene.updateTimeOfDay.bind(this.scene));
+
         // a folder for grouping parameters for one of the lights
         var f0 = this.gui.addFolder('Light 1 ');
         f0.add(this.scene.lights[1], 'enabled').name("Enabled");

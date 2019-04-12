@@ -49,13 +49,15 @@ class MyScene extends CGFscene {
         this.complexTree = new MyComplexTree(this, 1.5, 0.25, 3, 0.75, this.treeTrunkTexture, this.leavesTexture);
         this.floor = new MyQuad(this);
         this.cubeMap = new MyCubeMap(this);
-        // FALTAM AS TEXTURAS
 
         this.initObjectTextCoords();
 
         //Objects connected to MyInterface
         this.displayNormals = false;
         this.textsEnable = true;
+
+        this.timeOfDay = 0; // indicates if its day or night
+        this.times = {'Day': 0, 'Night': 1};
     }
     initLights() {
         this.lights[0].setPosition(15, 2, 5, 1);
@@ -84,7 +86,7 @@ class MyScene extends CGFscene {
     }
     initMaterialsAndTextures() {
 
-        // Matterials
+        // Materials
 
         this.diffuseMaterial = new CGFappearance(this);
         this.diffuseMaterial.setAmbient(0.5, 0.5, 0.5, 1);
@@ -93,13 +95,13 @@ class MyScene extends CGFscene {
         this.diffuseMaterial.setShininess(10.0);
 
         this.specularMaterial = new CGFappearance(this);
-        this.specularMaterial.setAmbient(0.1, 0.1, 0.1, 1);
-        this.specularMaterial.setDiffuse(0.3, 0.3, 0.3, 1);
-        this.specularMaterial.setSpecular(0.8, 0.8, 0.8, 1);
+        this.specularMaterial.setAmbient(0.7, 0.7, 0.7, 1);
+        this.specularMaterial.setDiffuse(0.5, 0.5, 0.5, 1);
+        this.specularMaterial.setSpecular(1, 1, 1, 1);
         this.specularMaterial.setShininess(10.0);
 
         this.matteMaterial = new CGFappearance(this);
-        this.matteMaterial.setAmbient(0.1, 0.1, 0.1, 1);
+        this.matteMaterial.setAmbient(0.4, 0.4, 0.4, 1);
         this.matteMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
         this.matteMaterial.setSpecular(0.1, 0.1, 0.1, 1);
         this.matteMaterial.setShininess(10.0);
@@ -134,10 +136,13 @@ class MyScene extends CGFscene {
         this.floor.updateTexCoordsGLBuffers();
     }
 
+    updateTimeOfDay() {
+        this.cubeMap.changeTimeOfDay();
+    }
+
     updateTextures() {
         this.enableTextures(this.textsEnable);
     }
-
 
     setDefaultAppearance() {
         this.setAmbient(0.2, 0.4, 0.8, 1.0);
@@ -170,28 +175,28 @@ class MyScene extends CGFscene {
 
         this.scale(0.5, 0.5, 0.5);
 
-        if (this.displayNormals) {
-            // this.prism.enableNormalViz();
-            this.treeGroup.enableNormalViz();
-            this.treeRow.enableNormalViz();
-            this.house.enableNormalViz();
-            this.smallHouse.enableNormalViz();
-            this.hill.enableNormalViz();
-            this.complexTree.enableNormalViz();
-            this.floor.enableNormalViz();
-            this.cubeMap.enableNormalViz();
-        }
-        else {
-            // this.prism.disableNormalViz();
-            this.treeGroup.disableNormalViz();
-            this.treeRow.disableNormalViz();
-            this.house.disableNormalViz();
-            this.smallHouse.disableNormalViz();
-            this.hill.disableNormalViz();
-            this.complexTree.disableNormalViz();
-            this.floor.disableNormalViz();
-            this.cubeMap.disableNormalViz();
-        }
+        // if (this.displayNormals) {
+        //     // this.prism.enableNormalViz();
+        //     this.treeGroup.enableNormalViz();
+        //     this.treeRow.enableNormalViz();
+        //     this.house.enableNormalViz();
+        //     this.smallHouse.enableNormalViz();
+        //     this.hill.enableNormalViz();
+        //     this.complexTree.enableNormalViz();
+        //     this.floor.enableNormalViz();
+        //     this.cubeMap.enableNormalViz();
+        // }
+        // else {
+        //     // this.prism.disableNormalViz();
+        //     this.treeGroup.disableNormalViz();
+        //     this.treeRow.disableNormalViz();
+        //     this.house.disableNormalViz();
+        //     this.smallHouse.disableNormalViz();
+        //     this.hill.disableNormalViz();
+        //     this.complexTree.disableNormalViz();
+        //     this.floor.disableNormalViz();
+        //     this.cubeMap.disableNormalViz();
+        // }
 
         this.diffuseMaterial.setTexture(this.grassTexture);
         this.diffuseMaterial.setTextureWrap('REPEAT', 'REPEAT');
@@ -235,7 +240,6 @@ class MyScene extends CGFscene {
 
 
         this.pushMatrix();
-        
         this.translate(0, 8, 0);
         this.scale(3.5, 3.5, 3.5);
         this.complexTree.display();
@@ -243,7 +247,7 @@ class MyScene extends CGFscene {
         this.popMatrix();
 
         this.pushMatrix();
-        this.cubeMap.material.apply();
+        this.cubeMap.cubeMapMaterial.apply();
         this.cubeMap.display();
         this.popMatrix();
 

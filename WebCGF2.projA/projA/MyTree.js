@@ -32,9 +32,6 @@ class MyTree extends CGFobject {
         this.scene.pushMatrix();
         this.scene.scale(this.trunkRadius, this.trunkHeight, this.trunkRadius);
 
-        // while mineToup
-        // this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
-
         this.scene.diffuseMaterial.setTexture(this.trunkTexture);
         this.scene.diffuseMaterial.apply();
 
@@ -44,9 +41,6 @@ class MyTree extends CGFobject {
         this.scene.pushMatrix();
         this.scene.translate(0, this.trunkHeight, 0);
         this.scene.scale(this.treeTopRadius, this.treeTopHeight, this.treeTopRadius);
-
-        // while mineToup
-        // this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
 
         this.scene.diffuseMaterial.setTexture(this.treeTopTexture);
         this.scene.diffuseMaterial.apply();
