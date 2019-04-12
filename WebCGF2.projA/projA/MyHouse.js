@@ -113,7 +113,7 @@ class MyHouse extends CGFobject {
         this.scene.diffuseMaterial.setTexture(this.welcomeMatTex);
         this.scene.diffuseMaterial.apply();
         this.scene.pushMatrix();
-        this.scene.translate(0, 0.201, 0.8);
+        this.scene.translate(0, 0.21, 0.8);
         this.scene.scale(0.7, 1, 0.5)
         this.scene.rotate(-Math.PI/2, 1, 0, 0);
         this.multiPurposeQuad.display();

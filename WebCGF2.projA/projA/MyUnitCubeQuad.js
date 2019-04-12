@@ -83,7 +83,6 @@ class MyUnitCubeQuad extends CGFobject {
 
         this.scene.matteMaterial.setTexture(this.bottomTexture);
         this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
-        
         this.scene.matteMaterial.apply();
 
         this.scene.translate(0, -0.5, 0);

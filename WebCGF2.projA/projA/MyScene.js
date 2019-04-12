@@ -49,6 +49,7 @@ class MyScene extends CGFscene {
         this.complexTree = new MyComplexTree(this, 1.5, 0.25, 3, 0.75, this.treeTrunkTexture, this.leavesTexture);
         this.floor = new MyQuad(this);
         this.cubeMap = new MyCubeMap(this);
+        this.pool = new MyPool(this, 2, this.waterTexture, this.floorTexture);
 
         this.initObjectTextCoords();
 
@@ -96,16 +97,15 @@ class MyScene extends CGFscene {
 
         this.specularMaterial = new CGFappearance(this);
         this.specularMaterial.setAmbient(0.7, 0.7, 0.7, 1);
-        this.specularMaterial.setDiffuse(0.5, 0.5, 0.5, 1);
+        this.specularMaterial.setDiffuse(0.4, 0.4, 0.4, 1);
         this.specularMaterial.setSpecular(1, 1, 1, 1);
         this.specularMaterial.setShininess(10.0);
 
         this.matteMaterial = new CGFappearance(this);
-        this.matteMaterial.setAmbient(0.4, 0.4, 0.4, 1);
-        this.matteMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
-        this.matteMaterial.setSpecular(0.1, 0.1, 0.1, 1);
-        this.matteMaterial.setShininess(10.0);
-
+        this.matteMaterial.setAmbient(0.7, 0.7, 0.7, 1);
+        this.matteMaterial.setDiffuse(0.5, 0.5, 0.5, 1);
+        this.matteMaterial.setSpecular(0, 0, 0, 1);
+        this.matteMaterial.setShininess(1.0);
 
         // Textures
 
@@ -123,15 +123,19 @@ class MyScene extends CGFscene {
         this.columnTexture = new CGFtexture(this, 'images/marbleColumn.jpg');
         this.welcomeMatTexture = new CGFtexture(this, 'images/welcomeMat.jpg');
         this.windowTexture = new CGFtexture(this, 'images/window.jpg');
+
+        // Pools
+        this.floorTexture = new CGFtexture(this, 'images/stoneTexture.jpg');
+        this.waterTexture = new CGFtexture(this, 'images/poolWater.jpg');
     }
 
     initObjectTextCoords() {
 
         this.floor.texCoords = [
-            0, 4,
-            4, 4,
+            0, 10,
+            10, 10,
             0, 0,
-            4, 0
+            10, 0
         ];
         this.floor.updateTexCoordsGLBuffers();
     }
@@ -185,6 +189,7 @@ class MyScene extends CGFscene {
         //     this.complexTree.enableNormalViz();
         //     this.floor.enableNormalViz();
         //     this.cubeMap.enableNormalViz();
+        //     this.pool.enableNormalViz();
         // }
         // else {
         //     // this.prism.disableNormalViz();
@@ -196,6 +201,7 @@ class MyScene extends CGFscene {
         //     this.complexTree.disableNormalViz();
         //     this.floor.disableNormalViz();
         //     this.cubeMap.disableNormalViz();
+        //     this.pool.disableNormalViz();
         // }
 
         this.diffuseMaterial.setTexture(this.grassTexture);
@@ -203,52 +209,56 @@ class MyScene extends CGFscene {
         this.diffuseMaterial.apply();
 
         this.pushMatrix();
-
         this.scale(100, 100, 100);
         this.rotate(-Math.PI / 2, 1, 0, 0);
         this.floor.display();
         this.rotate(Math.PI, 0, 1, 0);
         this.floor.display();
-
         this.popMatrix();
 
-        this.pushMatrix();
-        this.translate(-35, 0, -12);
-        this.scale(3.5, 3.5, 3.5);
-        this.treeGroup.display();
-        this.popMatrix();
+        // this.pushMatrix();
+        // this.translate(-35, 0, -12);
+        // this.scale(3.5, 3.5, 3.5);
+        // this.treeGroup.display();
+        // this.popMatrix();
 
-        this.pushMatrix();
-        this.translate(-25, 0, -25);
-        this.scale(5, 5, 5);
-        this.treeRow.display();
-        this.popMatrix();
+        // this.pushMatrix();
+        // this.translate(-25, 0, -25);
+        // this.scale(5, 5, 5);
+        // this.treeRow.display();
+        // this.popMatrix();
 
         this.pushMatrix();
         this.translate(34, 0, 0);
         this.house.display();
         this.popMatrix();
 
-        this.pushMatrix();
-        this.translate(-20, 0, 10);
-        this.rotate(Math.PI/2, 0, 1, 0);
-        this.smallHouse.display();
-        this.popMatrix();
+        // this.pushMatrix();
+        // this.translate(-20, 0, 10);
+        // this.rotate(Math.PI/2, 0, 1, 0);
+        // this.smallHouse.display();
+        // this.popMatrix();
 
         
-        this.hill.display();
+        // this.hill.display();
 
 
-        this.pushMatrix();
-        this.translate(0, 8, 0);
-        this.scale(3.5, 3.5, 3.5);
-        this.complexTree.display();
-        // it's a chris pine
-        this.popMatrix();
+        // this.pushMatrix();
+        // this.translate(0, 8, 0);
+        // this.scale(3.5, 3.5, 3.5);
+        // this.complexTree.display();
+        // // it's a chris pine
+        // this.popMatrix();
 
         this.pushMatrix();
         this.cubeMap.cubeMapMaterial.apply();
         this.cubeMap.display();
+        this.popMatrix();
+
+        this.pushMatrix();
+        this.translate(15, 0, 20);
+        this.rotate(Math.PI / 2, 0, 1, 0);
+        this.pool.display();
         this.popMatrix();
 
         this.popMatrix();
