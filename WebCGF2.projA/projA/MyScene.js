@@ -27,8 +27,24 @@ class MyScene extends CGFscene {
         // this.pyramid = new MyPyramid(this, 5, 1);
         this.treeGroup = new MyTreeGroupPatch(this, 1.5, 0.25, 3, 0.75, this.treeTrunkTexture, this.leavesTexture);
         this.treeRow = new MyTreeRowPatch(this, 1.5, 0.25, 3, 0.75, this.treeTrunkTexture, this.leavesTexture);
-        this.house = new MyHouse(this, 3.5);
-        this.smallHouse = new MyHouse(this, 2);
+        this.house = new MyHouse(this, 3.5,
+                                this.brickTexture,
+                                this.doorTexture,
+                                this.balconyTexture,
+                                this.roofTexture,
+                                this.houseDetailTexture,
+                                this.columnTexture,
+                                this.welcomeMatTexture,
+                                this.windowTexture);
+        this.smallHouse = new MyHouse(this, 2,
+                                this.brickTexture,
+                                this.doorTexture,
+                                this.balconyTexture,
+                                this.roofTexture,
+                                this.houseDetailTexture,
+                                this.columnTexture,
+                                this.welcomeMatTexture,
+                                this.windowTexture);
         this.hill = new MyVoxelHill(this, 4, 2);
         this.complexTree = new MyComplexTree(this, 1.5, 0.25, 3, 0.75, this.treeTrunkTexture, this.leavesTexture);
         this.floor = new MyQuad(this);
@@ -91,9 +107,20 @@ class MyScene extends CGFscene {
 
         // Textures
 
+        // Trees
         this.treeTrunkTexture = new CGFtexture(this, 'images/trunkTexture.png');
         this.grassTexture = new CGFtexture(this, 'images/grassTexture.jpg');
         this.leavesTexture = new CGFtexture(this, 'images/pineNeedles.jpg');
+
+        // Houses
+        this.brickTexture = new CGFtexture(this, 'images/brickWall.jpg');
+        this.doorTexture = new CGFtexture(this, 'images/door.jpg');
+        this.balconyTexture = new CGFtexture(this, 'images/balconyFloor.jpg');
+        this.roofTexture = new CGFtexture(this, 'images/roofTiles.jpg');
+        this.houseDetailTexture = new CGFtexture(this, 'images/rodape.jpg');
+        this.columnTexture = new CGFtexture(this, 'images/marbleColumn.jpg');
+        this.welcomeMatTexture = new CGFtexture(this, 'images/welcomeMat.jpg');
+        this.windowTexture = new CGFtexture(this, 'images/window.jpg');
     }
 
     initObjectTextCoords() {

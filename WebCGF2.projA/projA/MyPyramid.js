@@ -80,6 +80,17 @@ class MyPyramid extends CGFobject {
         this.initBuffers();
         this.initNormalVizBuffers();
     }
+    
+    adjustToRoof() {
+        var roofTexCoords = [
+            0.5, 0,
+            0, 1,
+            1, 1
+        ];
+        this.texCoords = [];
+        for (var i = 0; i < 4; i++) this.texCoords.push(...roofTexCoords);
+        this.initGLBuffers();
+    }
 }
 
 

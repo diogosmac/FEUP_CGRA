@@ -4,16 +4,25 @@
  * @param scene - Reference to MyScene object
  */
 class MyUnitCubeQuad extends CGFobject {
-	constructor(scene) {
+	constructor(scene, texWrap) {
 		super(scene);
         this.quad = new MyQuad(this.scene);
-        this.initTextures();
-    }
-    
-    initTextures() {
+        this.texWrap = texWrap;
         this.sideTexture = new CGFtexture(this.scene, 'images/mineSide.png');
         this.topTexture = new CGFtexture(this.scene, 'images/mineTop.png');
         this.bottomTexture = new CGFtexture(this.scene, 'images/mineBottom.png');
+    }
+    
+    setTextures(sideTexture, topTexture, bottomTexture) {
+        if (sideTexture != undefined)
+            this.sideTexture = sideTexture;
+
+        if (topTexture != undefined)
+            this.topTexture = topTexture;
+
+        if (bottomTexture != undefined)
+            this.bottomTexture = bottomTexture;
+
     }
 
     enableNormalViz() {
@@ -25,6 +34,9 @@ class MyUnitCubeQuad extends CGFobject {
     }
 
     display() {
+
+        if (this.texWrap != "UNDEFINED")
+            this.scene.matteMaterial.setTextureWrap(this.texWrap, this.texWrap);
 
         this.scene.matteMaterial.setTexture(this.sideTexture);
         this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
