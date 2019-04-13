@@ -50,6 +50,7 @@ class MyScene extends CGFscene {
         this.floor = new MyQuad(this);
         this.cubeMap = new MyCubeMap(this);
         this.pool = new MyPool(this, 2, this.waterTexture, this.floorTexture);
+        this.fireplace = new MyFireplace(this, 0.75, this.fireplaceBaseTexture, this.logTexture, this.floorTexture, this.fireTexture);
 
         this.initObjectTextCoords();
 
@@ -127,6 +128,11 @@ class MyScene extends CGFscene {
         // Pools
         this.floorTexture = new CGFtexture(this, 'images/stoneTexture.jpg');
         this.waterTexture = new CGFtexture(this, 'images/poolWater.jpg');
+
+        // Fireplaces
+        this.fireplaceBaseTexture = new CGFtexture(this, 'images/fireplaceBase.jpg');
+        this.fireTexture = new CGFtexture(this, 'images/fire.jpg');
+        this.logTexture = new CGFtexture(this, 'images/treeLog.jpg');
     }
 
     initObjectTextCoords() {
@@ -259,6 +265,11 @@ class MyScene extends CGFscene {
         this.translate(15, 0, 20);
         this.rotate(Math.PI / 2, 0, 1, 0);
         this.pool.display();
+        this.popMatrix();
+
+        this.pushMatrix();
+        this.translate(15, 0, 5);
+        this.fireplace.display();
         this.popMatrix();
 
         this.popMatrix();
