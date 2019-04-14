@@ -59,7 +59,7 @@ class MyScene extends CGFscene {
         this.textsEnable = true;
 
         this.timeOfDay = 0; // indicates if its day or night
-        this.times = {'Day': 0, 'Night': 1};
+        this.times = {'Day': 0, 'Night (Moon)': 1, 'Night (Campfire)': 2};
     }
     initLights() {
         this.lights[0].setPosition(15, 2, 5, 1);
@@ -72,16 +72,36 @@ class MyScene extends CGFscene {
         this.lights[1].setPosition(-2, 3, 2, 1);
         this.lights[1].setDiffuse(1.0, 1.0, 1.0, 1.0);
         this.lights[1].setSpecular(1.0, 1.0, 1.0, 1.0);
-        this.lights[1].enable();
-        this.lights[1].setVisible(true);
+        this.lights[1].disable();
+        this.lights[1].setVisible(false);
         this.lights[1].update();
 
-        this.lights[2].setPosition(3, 3, 2, 1);
-        this.lights[2].setDiffuse(1.0, 1.0, 1.0, 1.0);
+        // sunlight
+        this.lights[2].setPosition(0, 15, 0, 1);
+        this.lights[2].setDiffuse(1.0, 0.8, 0.7, 1.0);
         this.lights[2].setSpecular(1.0, 1.0, 1.0, 1.0);
         this.lights[2].enable();
-        this.lights[2].setVisible(true);
+        this.lights[2].setVisible(false);
         this.lights[2].update();
+
+        // moonlight
+        this.lights[3].setPosition(0, 15, 0, 1);
+        this.lights[3].setDiffuse(0.2, 0.2, 0.2, 1.0);
+        this.lights[3].setSpecular(0.8, 0.8, 0.8, 1.0);
+        this.lights[3].setConstantAttenuation(0.3);
+        this.lights[3].disable();
+        this.lights[3].setVisible(false);
+        this.lights[3].update();
+
+        // fireplace light
+        this.lights[4].setPosition(7.55, 1.5, 2.45, 1);
+        this.lights[4].setDiffuse(1.0, 0.6, 0.3, 1.0);
+        this.lights[4].setSpecular(1.0, 0.6, 0.3, 1.0);
+        this.lights[4].setLinearAttenuation(0.1);
+        this.lights[4].setQuadraticAttenuation(0.05);
+        this.lights[4].disable();
+        this.lights[4].setVisible(false);
+        this.lights[4].update();
     }
     initCameras() {
         this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
@@ -148,6 +168,18 @@ class MyScene extends CGFscene {
 
     updateTimeOfDay() {
         this.cubeMap.changeTimeOfDay();
+
+        this.lights[2].disable();
+        this.lights[3].disable();
+        this.lights[4].disable();
+        
+        if (this.timeOfDay == 0) this.lights[2].enable();
+        else if (this.timeOfDay == 1) this.lights[3].enable();
+        else if (this.timeOfDay == 2) this.lights[4].enable();
+        
+        this.lights[2].update();
+        this.lights[3].update();
+        this.lights[4].update();
     }
 
     updateTextures() {
@@ -178,6 +210,8 @@ class MyScene extends CGFscene {
         // this.setDefaultAppearance();
         this.lights[1].update();
         this.lights[2].update();
+        this.lights[3].update();
+        this.lights[4].update();
 
         // ---- BEGIN Primitive drawing section
 
@@ -222,39 +256,38 @@ class MyScene extends CGFscene {
         this.floor.display();
         this.popMatrix();
 
-        // this.pushMatrix();
-        // this.translate(-35, 0, -12);
-        // this.scale(3.5, 3.5, 3.5);
-        // this.treeGroup.display();
-        // this.popMatrix();
+        this.pushMatrix();
+        this.translate(-35, 0, -12);
+        this.scale(3.5, 3.5, 3.5);
+        this.treeGroup.display();
+        this.popMatrix();
 
-        // this.pushMatrix();
-        // this.translate(-25, 0, -25);
-        // this.scale(5, 5, 5);
-        // this.treeRow.display();
-        // this.popMatrix();
+        this.pushMatrix();
+        this.translate(-25, 0, -25);
+        this.scale(5, 5, 5);
+        this.treeRow.display();
+        this.popMatrix();
 
         this.pushMatrix();
         this.translate(34, 0, 0);
         this.house.display();
         this.popMatrix();
 
-        // this.pushMatrix();
-        // this.translate(-20, 0, 10);
-        // this.rotate(Math.PI/2, 0, 1, 0);
-        // this.smallHouse.display();
-        // this.popMatrix();
+        this.pushMatrix();
+        this.translate(-20, 0, 10);
+        this.rotate(Math.PI/2, 0, 1, 0);
+        this.smallHouse.display();
+        this.popMatrix();
 
         
-        // this.hill.display();
+        this.hill.display();
 
-
-        // this.pushMatrix();
-        // this.translate(0, 8, 0);
-        // this.scale(3.5, 3.5, 3.5);
-        // this.complexTree.display();
-        // // it's a chris pine
-        // this.popMatrix();
+        this.pushMatrix();
+        this.translate(0, 8, 0);
+        this.scale(3.5, 3.5, 3.5);
+        this.complexTree.display();
+        // it's a chris pine
+        this.popMatrix();
 
         this.pushMatrix();
         this.cubeMap.cubeMapMaterial.apply();
@@ -267,10 +300,12 @@ class MyScene extends CGFscene {
         this.pool.display();
         this.popMatrix();
 
-        this.pushMatrix();
-        this.translate(15, 0, 5);
-        this.fireplace.display();
-        this.popMatrix();
+        if (this.timeOfDay == 2) {
+            this.pushMatrix();
+            this.translate(15, 0, 5);
+            this.fireplace.display();
+            this.popMatrix();
+        }
 
         this.popMatrix();
 

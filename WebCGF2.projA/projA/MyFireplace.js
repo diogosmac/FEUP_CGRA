@@ -45,7 +45,7 @@ class MyFireplace extends CGFobject {
 
         this.scene.pushMatrix();
         this.scene.scale(5, 1, 5);
-        this.scene.translate(0, 0.001, 0);
+        this.scene.translate(0, 0.002, 0);
         this.scene.rotate(-Math.PI / 2, 1, 0, 0);
         this.base.display();
         this.scene.popMatrix();
