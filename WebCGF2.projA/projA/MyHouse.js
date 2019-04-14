@@ -54,7 +54,7 @@ class MyHouse extends CGFobject {
         this.scene.diffuseMaterial.setTexture(this.windowTex);
         this.scene.diffuseMaterial.apply();
         this.scene.pushMatrix();
-        this.scene.translate(-1.8, 1, 0.501);
+        this.scene.translate(-1.8, 1, 0.51);
         this.multiPurposeQuad.display();
         this.scene.popMatrix();
 
