@@ -55,18 +55,20 @@ class MyScene extends CGFscene {
         this.initObjectTextCoords();
 
         //Objects connected to MyInterface
+        this.displayAxis = false;
         this.displayNormals = false;
         this.textsEnable = true;
+        this.customLight = false;
 
         this.timeOfDay = 0; // indicates if its day or night
-        this.times = {'Day': 0, 'Night (Moon)': 1, 'Night (Campfire)': 2};
+        this.times = {'Day': 0, 'Night': 1};
     }
     initLights() {
         this.lights[0].setPosition(15, 2, 5, 1);
         this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
-        // this.lights[0].disable();
-        this.lights[0].enable();
-        this.lights[0].setVisible(true);
+        this.lights[0].disable();
+        // this.lights[0].enable();
+        this.lights[0].setVisible(false);
         this.lights[0].update();
 
         this.lights[1].setPosition(-2, 3, 2, 1);
@@ -77,24 +79,29 @@ class MyScene extends CGFscene {
         this.lights[1].update();
 
         // sunlight
-        this.lights[2].setPosition(0, 15, 0, 1);
+        this.lights[2].setPosition(-5, 15, 10, 1);
         this.lights[2].setDiffuse(1.0, 0.8, 0.7, 1.0);
-        this.lights[2].setSpecular(1.0, 1.0, 1.0, 1.0);
+        this.lights[2].setSpecular(1.0, 0.8, 0.7, 1.0);
+        this.lights[2].setConstantAttenuation(0.1);
+        this.lights[2].setLinearAttenuation(0);
+        this.lights[2].setQuadraticAttenuation(0);
         this.lights[2].enable();
         this.lights[2].setVisible(false);
         this.lights[2].update();
 
         // moonlight
-        this.lights[3].setPosition(0, 15, 0, 1);
-        this.lights[3].setDiffuse(0.2, 0.2, 0.2, 1.0);
-        this.lights[3].setSpecular(0.8, 0.8, 0.8, 1.0);
-        this.lights[3].setConstantAttenuation(0.3);
+        this.lights[3].setPosition(-5, 15, 10, 1);
+        this.lights[3].setDiffuse(0.1, 0.2, 0.5, 1.0);
+        this.lights[3].setSpecular(0.1, 0.2, 0.5, 1.0);
+        this.lights[3].setConstantAttenuation(0.1);
+        this.lights[3].setLinearAttenuation(0.01);
+        this.lights[3].setQuadraticAttenuation(0.001);
         this.lights[3].disable();
         this.lights[3].setVisible(false);
         this.lights[3].update();
 
         // fireplace light
-        this.lights[4].setPosition(7.55, 1.5, 2.45, 1);
+        this.lights[4].setPosition(7.55, 1.75, 2.45, 1);
         this.lights[4].setDiffuse(1.0, 0.6, 0.3, 1.0);
         this.lights[4].setSpecular(1.0, 0.6, 0.3, 1.0);
         this.lights[4].setLinearAttenuation(0.1);
@@ -173,13 +180,29 @@ class MyScene extends CGFscene {
         this.lights[3].disable();
         this.lights[4].disable();
         
-        if (this.timeOfDay == 0) this.lights[2].enable();
-        else if (this.timeOfDay == 1) this.lights[3].enable();
-        else if (this.timeOfDay == 2) this.lights[4].enable();
-        
+        if (this.timeOfDay == 0) {
+            this.lights[2].enable();
+        }
+        else {
+            this.lights[3].enable();
+            this.lights[4].enable();
+        }
+
         this.lights[2].update();
         this.lights[3].update();
         this.lights[4].update();
+    }
+
+    updateCustomLight() {
+        if (this.customLight) {
+            this.lights[1].enable();
+            this.lights[1].setVisible(true);
+        }
+        else {
+            this.lights[1].disable();
+            this.lights[1].setVisible(false);
+        }
+        this.lights[1].update();
     }
 
     updateTextures() {
@@ -204,10 +227,12 @@ class MyScene extends CGFscene {
         this.applyViewMatrix();
 
         // Draw axis
-        this.axis.display();
+        if (this.displayAxis)
+            this.axis.display();
 
         //Apply default appearance
         // this.setDefaultAppearance();
+        this.lights[0].update();
         this.lights[1].update();
         this.lights[2].update();
         this.lights[3].update();
@@ -219,30 +244,30 @@ class MyScene extends CGFscene {
 
         this.scale(0.5, 0.5, 0.5);
 
-        // if (this.displayNormals) {
-        //     // this.prism.enableNormalViz();
-        //     this.treeGroup.enableNormalViz();
-        //     this.treeRow.enableNormalViz();
-        //     this.house.enableNormalViz();
-        //     this.smallHouse.enableNormalViz();
-        //     this.hill.enableNormalViz();
-        //     this.complexTree.enableNormalViz();
-        //     this.floor.enableNormalViz();
-        //     this.cubeMap.enableNormalViz();
-        //     this.pool.enableNormalViz();
-        // }
-        // else {
-        //     // this.prism.disableNormalViz();
-        //     this.treeGroup.disableNormalViz();
-        //     this.treeRow.disableNormalViz();
-        //     this.house.disableNormalViz();
-        //     this.smallHouse.disableNormalViz();
-        //     this.hill.disableNormalViz();
-        //     this.complexTree.disableNormalViz();
-        //     this.floor.disableNormalViz();
-        //     this.cubeMap.disableNormalViz();
-        //     this.pool.disableNormalViz();
-        // }
+        if (this.displayNormals) {
+            // this.prism.enableNormalViz();
+            this.treeGroup.enableNormalViz();
+            this.treeRow.enableNormalViz();
+            this.house.enableNormalViz();
+            this.smallHouse.enableNormalViz();
+            this.hill.enableNormalViz();
+            this.complexTree.enableNormalViz();
+            this.floor.enableNormalViz();
+            this.cubeMap.enableNormalViz();
+            this.pool.enableNormalViz();
+        }
+        else {
+            // this.prism.disableNormalViz();
+            this.treeGroup.disableNormalViz();
+            this.treeRow.disableNormalViz();
+            this.house.disableNormalViz();
+            this.smallHouse.disableNormalViz();
+            this.hill.disableNormalViz();
+            this.complexTree.disableNormalViz();
+            this.floor.disableNormalViz();
+            this.cubeMap.disableNormalViz();
+            this.pool.disableNormalViz();
+        }
 
         this.diffuseMaterial.setTexture(this.grassTexture);
         this.diffuseMaterial.setTextureWrap('REPEAT', 'REPEAT');
@@ -300,7 +325,7 @@ class MyScene extends CGFscene {
         this.pool.display();
         this.popMatrix();
 
-        if (this.timeOfDay == 2) {
+        if (this.timeOfDay == 1) {
             this.pushMatrix();
             this.translate(15, 0, 5);
             this.fireplace.display();

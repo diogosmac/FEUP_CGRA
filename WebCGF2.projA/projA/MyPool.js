@@ -17,12 +17,12 @@ class MyPool extends CGFobject {
     }
 
     enableNormalViz() {
-        this.cube.enableNormalViz();
+        this.floor.enableNormalViz();
         this.water.enableNormalViz();
     }
 
     disableNormalViz() {
-        this.cube.disableNormalViz();
+        this.floor.disableNormalViz();
         this.water.disableNormalViz();
     }
 
