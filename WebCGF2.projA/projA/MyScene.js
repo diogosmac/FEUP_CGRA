@@ -104,7 +104,7 @@ class MyScene extends CGFscene {
         this.lights[4].update();
     }
     initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
+        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(50, 50, 50), vec3.fromValues(0, 0, 0));
     }
     initMaterialsAndTextures() {
 
@@ -249,7 +249,7 @@ class MyScene extends CGFscene {
         this.diffuseMaterial.apply();
 
         this.pushMatrix();
-        this.scale(100, 100, 100);
+        this.scale(300, 300, 300);
         this.rotate(-Math.PI / 2, 1, 0, 0);
         this.floor.display();
         this.rotate(Math.PI, 0, 1, 0);
