@@ -224,9 +224,13 @@ class ShaderScene extends CGFscene {
 		this.texture2.bind(1);
 
 		this.textureWater.bind(2);
-		this.textureWaterMap.bind(3);
 
 		//Uncomment following lines in case texture must have wrapping mode 'REPEAT'
+		this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_S, this.gl.REPEAT);
+		this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_T, this.gl.REPEAT);
+
+		this.textureWaterMap.bind(3);
+
 		this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_S, this.gl.REPEAT);
 		this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_T, this.gl.REPEAT);
 
