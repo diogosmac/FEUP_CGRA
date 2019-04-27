@@ -5,9 +5,9 @@ class ShaderScene extends CGFscene {
 		this.appearance = null;
 
 		// initial configuration of interface
-		this.selectedObject = 0;
+		this.selectedObject = 1;
 		this.wireframe = false;
-		this.selectedExampleShader = 0;
+		this.selectedExampleShader = 11;
 		this.showShaderCode = false;
 
 		this.scaleFactor = 16.0;
@@ -183,13 +183,14 @@ class ShaderScene extends CGFscene {
 
 	// called periodically (as per setUpdatePeriod() in init())
 	update(t) {
-		// only shader 6 is using time factor
+		// shader 6 is using time factor
 		if (this.selectedExampleShader == 6) {
 			this.testShaders[6].setUniformsValues({ timeFactor: t / 100 % 1000 });
 			this.testShaders[6].setUniformsValues({ sinFunctionValue: Math.sin(2 * Math.PI * (t / 10000)) });
 		}
+		// so is shader 11
 		else if(this.selectedExampleShader == 11) {
-			this.testShaders[11].setUniformsValues({ timeFactor: t / 100 % 1000 });
+			this.testShaders[11].setUniformsValues({ timeFactor: t / 100 % 100 });
 		}
 	}
 
@@ -213,16 +214,15 @@ class ShaderScene extends CGFscene {
 		// Draw axis
 		this.axis.display();
 
-		// aplly main appearance (including texture in default texture unit 0)
+		// apply main appearance (including texture in default texture unit 0)
 		this.appearance.apply();
-
+		
 		// activate selected shader
 		this.setActiveShader(this.testShaders[this.selectedExampleShader]);
 		this.pushMatrix();
 
 		// bind additional texture to texture unit 1
 		this.texture2.bind(1);
-
 		this.textureWater.bind(2);
 		this.textureWaterMap.bind(3);
 

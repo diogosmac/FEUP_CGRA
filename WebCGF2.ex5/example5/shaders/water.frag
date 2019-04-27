@@ -7,15 +7,13 @@ varying vec2 vTextureCoord;
 uniform sampler2D uSamplerWater;
 uniform float timeFactor;
 varying float verticalOffset;
-varying float animationOffset;
 
 void main() {
-	vec4 color = texture2D(uSamplerWater, vec2(animationOffset, animationOffset) + vTextureCoord);
-
+	vec4 color = texture2D(uSamplerWater, vTextureCoord);
 	gl_FragColor = color;
 
-    if(verticalOffset > 0.01) {
-        float colorModifier = 1.15 + verticalOffset;
+    if(verticalOffset > 0.04) {
+        float colorModifier = 1.15;
         gl_FragColor.rgb /= colorModifier;
     }
 }

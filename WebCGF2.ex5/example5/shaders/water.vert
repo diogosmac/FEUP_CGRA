@@ -10,18 +10,20 @@ varying vec2 vTextureCoord;
 
 uniform sampler2D uSamplerWaterMap;
 varying float verticalOffset;
-varying float animationOffset;
 
 uniform float timeFactor;
 
 void main() {
-    animationOffset = (timeFactor / 1000.0);
 
-    vec4 colorMap = texture2D(uSamplerWaterMap, vec2(animationOffset, animationOffset) + aTextureCoord);
-    verticalOffset = colorMap.b / 15.0;
+    vec2 animationOffset = timeFactor * 0.01 * vec2(1.0, 1.0);
 
-	gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition.xy, aVertexPosition.z + verticalOffset, 1.0);
+    vec4 colorMap = texture2D(uSamplerWaterMap, aTextureCoord + animationOffset);
 
-	vTextureCoord = aTextureCoord + timeFactor * 0.1 * vec2(0.1,0.1);
+    verticalOffset = colorMap.b * 0.08;
+    vec3 verticalOffsetVector = aVertexNormal * verticalOffset;
+
+	gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition + verticalOffsetVector, 1.0);
+
+    vTextureCoord = aTextureCoord + animationOffset;
+
 }
-
