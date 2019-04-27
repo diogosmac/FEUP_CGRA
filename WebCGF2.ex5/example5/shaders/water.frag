@@ -15,7 +15,7 @@ void main() {
 	gl_FragColor = color;
 
     if(verticalOffset < 0.01) {
-        float colorModifier = 1.07 + verticalOffset;
+        float colorModifier = 1.10 + verticalOffset;
         gl_FragColor.rgb /= colorModifier;
     }
 }
