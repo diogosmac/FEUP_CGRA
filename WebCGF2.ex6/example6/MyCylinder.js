@@ -21,8 +21,8 @@ class MyCylinder extends CGFobject {
 
         for(var i = 0; i <= this.slices; i++, ang += deltaAng) {
 
-            var cos = Math.cos(ang);
-            var sin = Math.sin(ang);
+            var cos = 0.75 * Math.cos(ang);
+            var sin = 0.75 * Math.sin(ang);
 
             //define the two vertices of a vertical edge
             this.vertices.push(cos, 0, sin);

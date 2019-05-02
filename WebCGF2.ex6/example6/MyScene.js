@@ -36,8 +36,20 @@ class MyScene extends CGFscene {
             this.lSystem.generate(
                 this.axiom,
                 {
-                    "F": [ this.ruleF ],
-                    "X": [ this.ruleX ]
+                    // "F": [ this.ruleF ],
+                    // "X": [ this.ruleX ]
+                    "F": ["FF"],
+                    "X": [
+                        "F[-X][X]F[-X]+X",
+                        "F[-X][X]+X",
+                        "F[+X]-X",
+                        "F[/X][X]F[\\X]+X",
+                        "F[\\X][X]/X",
+                        "F[/X]\\X",
+                        "F[^X][X]F[&X]^X",
+                        "F[^X]&X",
+                        "F[&X]^X"
+                    ]
                 },
                 this.angle,
                 this.iterations,
