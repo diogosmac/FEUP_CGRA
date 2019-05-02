@@ -29,7 +29,8 @@ class MyScene extends CGFscene {
         this.angle = 30.0;
         this.iterations = 4;
         this.scaleFactor = 0.5;
-        this.lSystem = new MyLSystem(this);
+        // this.lSystem = new MyLSystem(this);
+        this.lSystem = new MyLSPlant(this);
 
         this.doGenerate = function () {
             this.lSystem.generate(
