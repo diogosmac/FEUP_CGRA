@@ -40,6 +40,8 @@ class MyScene extends CGFscene {
 
         this.bird = new MyBird(this, 1);
 
+        this.sphere = new MySphere(this, 20, 20, 1);
+
         this.timeOfDay = 0;
 
         // this.defaultMaterial = new CGFappearance(this);
@@ -147,6 +149,11 @@ class MyScene extends CGFscene {
         this.pushMatrix();
         this.translate(0, 10, 0);
         this.bird.display();
+        this.popMatrix();
+
+        this.pushMatrix();
+        this.translate(5, 10, 0);
+        this.sphere.display();
         this.popMatrix();
 
         this.pushMatrix();
