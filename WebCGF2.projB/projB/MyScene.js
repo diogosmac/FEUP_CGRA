@@ -21,21 +21,22 @@ class MyScene extends CGFscene {
         this.enableTextures(true);
         this.setUpdatePeriod(50);
 
+        this.initMaterials();
         this.initTextures();
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
         this.plane = new Plane(this, 32);
         this.cubeMap = new MyCubeMap(this);
-        // this.house = new MyHouse(this, 4,
-        //                          this.brickTexture,
-        //                          this.doorTexture,
-        //                          this.balconyTexture,
-        //                          this.roofTexture,
-        //                          this.houseDetailTexture,
-        //                          this.columnTexture,
-        //                          this.welcomeMatTexture,
-        //                          this.windowTexture);
+        this.house = new MyHouse(this, 0.75,
+                                 this.brickTexture,
+                                 this.doorTexture,
+                                 this.balconyTexture,
+                                 this.roofTexture,
+                                 this.houseDetailTexture,
+                                 this.columnTexture,
+                                 this.welcomeMatTexture,
+                                 this.windowTexture);
 
         this.timeOfDay = 0;
 
@@ -48,6 +49,28 @@ class MyScene extends CGFscene {
 
         //Objects connected to MyInterface
     }
+
+    initMaterials() {
+
+        this.diffuseMaterial = new CGFappearance(this);
+        this.diffuseMaterial.setAmbient(0.5, 0.5, 0.5, 1);
+        this.diffuseMaterial.setDiffuse(0.7, 0.7, 0.7, 1);
+        this.diffuseMaterial.setSpecular(0.2, 0.2, 0.2, 1);
+        this.diffuseMaterial.setShininess(10.0);
+
+        this.specularMaterial = new CGFappearance(this);
+        this.specularMaterial.setAmbient(0.7, 0.7, 0.7, 1);
+        this.specularMaterial.setDiffuse(0.4, 0.4, 0.4, 1);
+        this.specularMaterial.setSpecular(1, 1, 1, 1);
+        this.specularMaterial.setShininess(10.0);
+
+        this.matteMaterial = new CGFappearance(this);
+        this.matteMaterial.setAmbient(0.7, 0.7, 0.7, 1);
+        this.matteMaterial.setDiffuse(0.5, 0.5, 0.5, 1);
+        this.matteMaterial.setSpecular(0, 0, 0, 1);
+        this.matteMaterial.setShininess(1.0);
+    }
+
     initTextures() {
         
         // House
@@ -68,7 +91,7 @@ class MyScene extends CGFscene {
         this.lights[0].update();
     }
     initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(45, 45, 45), vec3.fromValues(0, 0, 0));
+        this.camera = new CGFcamera(0.4, 0.1, 700, vec3.fromValues(45, 45, 45), vec3.fromValues(0, 0, 0));
     }
     setDefaultAppearance() {
         this.setAmbient(0.2, 0.4, 0.8, 1.0);
@@ -103,6 +126,10 @@ class MyScene extends CGFscene {
         this.rotate(-0.5*Math.PI, 1, 0, 0);
         this.scale(60, 60, 1);
         this.plane.display();
+        this.popMatrix();
+
+        this.pushMatrix();
+        this.house.display();
         this.popMatrix();
 
         this.cubeMap.cubeMapMaterial.apply();
