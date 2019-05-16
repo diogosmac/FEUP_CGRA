@@ -48,6 +48,8 @@ class MyScene extends CGFscene {
         
 
         //Objects connected to MyInterface
+
+        this.setUpdatePeriod(100);
     }
 
     initMaterials() {
@@ -100,7 +102,25 @@ class MyScene extends CGFscene {
         this.setShininess(10.0);
     }
     update(t){
+        this.checkKeys();
+    }
 
+    checkKeys() {
+        var text = "Keys pressed: ";
+        var keysPressed = false;
+
+        if (this.gui.isKeyPressed("KeyW")) {
+            text += " W ";
+            keysPressed = true;
+        }
+
+        if (this.gui.isKeyPressed("KeyS")) {
+            text += " S ";
+            keysPressed = true;
+        }
+
+        if (keysPressed)
+            console.log(text);
     }
 
     display() {
