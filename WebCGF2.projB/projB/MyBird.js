@@ -40,12 +40,45 @@ class MyBird extends CGFobject {
         this.tail.display();
         this.scene.popMatrix();
         
+
         // Inner Wing #1
+
         this.scene.pushMatrix();
-        this.scene.translate(10, 10, 0);
+        this.scene.translate(0.75, 0, 0.8);
+        this.scene.scale(0.75, 0.75, 1);
+        this.scene.rotate(Math.PI / 2, 1, 0, 0);
         this.innerWing.display();
         this.scene.popMatrix();
 
+
+        // Inner Wing #2
+        
+        this.scene.pushMatrix();
+        this.scene.translate(-0.75, 0, 0.8);
+        this.scene.scale(0.75, 0.75, 1);
+        this.scene.rotate(Math.PI / 2, 1, 0, 0);
+        this.innerWing.display();
+        this.scene.popMatrix();
+
+
+        // Outer Wing # 1
+
+        this.scene.pushMatrix();
+        this.scene.translate(-0.75, 0, 0.8);
+        this.scene.scale(0.75, 0.75, 1);
+        this.scene.rotate(Math.PI / 2, 1, 0, 0);
+        this.outerWing.display();
+        this.scene.popMatrix();
+
+
+        // Outer Wing # 2
+
+        // this.scene.pushMatrix();
+        // this.scene.translate(-0.75, 0, 0.8);
+        // this.scene.scale(0.75, 0.75, 1);
+        // this.scene.rotate(Math.PI / 2, 1, 0, 0);
+        // this.outerWing.display();
+        // this.scene.popMatrix();
     }
 
 
