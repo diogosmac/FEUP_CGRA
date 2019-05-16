@@ -38,6 +38,8 @@ class MyScene extends CGFscene {
                                  this.welcomeMatTexture,
                                  this.windowTexture);
 
+        this.bird = new MyBird(this, 1);
+
         this.timeOfDay = 0;
 
         // this.defaultMaterial = new CGFappearance(this);
@@ -141,6 +143,11 @@ class MyScene extends CGFscene {
         this.setDefaultAppearance();
 
         // ---- BEGIN Primitive drawing section
+
+        this.pushMatrix();
+        this.translate(0, 10, 0);
+        this.bird.display();
+        this.popMatrix();
 
         this.pushMatrix();
         this.rotate(-0.5*Math.PI, 1, 0, 0);
