@@ -19,22 +19,20 @@ class MyInterface extends CGFinterface {
         return true;
     }
 
-    initKeys()
-	{
+    initKeys() {
 		this.scene.gui = this;
 		this.processKeyboard = function() {};
 		this.activeKeys = {};
-	};
-    processKeyDown(event) 
-    {
+    }
+    
+    processKeyDown(event) {
 		this.activeKeys[event.code] = true;
 	}
-    processKeyUp(event) 
-    {
+    processKeyUp(event) {
 		this.activeKeys[event.code] = false;
 	}
-    isKeyPressed(keyCode) 
-    {
+    
+    isKeyPressed(keyCode) {
 		return this.activeKeys[keyCode] || false;
 	}
 }
