@@ -40,6 +40,8 @@ class MyScene extends CGFscene {
 
         this.bird = new MyBird(this, 1);
 
+        this.sphere = new MySphere(this, 20, 20, 1);
+
         this.timeOfDay = 0;
 
         // this.defaultMaterial = new CGFappearance(this);
@@ -50,6 +52,8 @@ class MyScene extends CGFscene {
         
 
         //Objects connected to MyInterface
+
+        this.setUpdatePeriod(100);
     }
 
     initMaterials() {
@@ -102,7 +106,25 @@ class MyScene extends CGFscene {
         this.setShininess(10.0);
     }
     update(t){
+        this.checkKeys();
+    }
 
+    checkKeys() {
+        var text = "Keys pressed: ";
+        var keysPressed = false;
+
+        if (this.gui.isKeyPressed("KeyW")) {
+            text += " W ";
+            keysPressed = true;
+        }
+
+        if (this.gui.isKeyPressed("KeyS")) {
+            text += " S ";
+            keysPressed = true;
+        }
+
+        if (keysPressed)
+            console.log(text);
     }
 
     display() {
@@ -127,6 +149,11 @@ class MyScene extends CGFscene {
         this.pushMatrix();
         this.translate(0, 10, 0);
         this.bird.display();
+        this.popMatrix();
+
+        this.pushMatrix();
+        this.translate(5, 10, 0);
+        this.sphere.display();
         this.popMatrix();
 
         this.pushMatrix();
