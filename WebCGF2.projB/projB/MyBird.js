@@ -3,6 +3,8 @@ class MyBird extends CGFobject {
     constructor(scene, birdSize, initialX, initialY, initialZ) {
         super(scene);
 
+        this.initMaterials();
+        this.initTextures();
 
         this.scaleFactor = 1;
 
@@ -17,7 +19,7 @@ class MyBird extends CGFobject {
 
 
         this.birdSize = birdSize;
-        
+
         this.tail = new MyCone(this.scene, 10, 1);
         this.body = new MyCylinder(this.scene, 10);
         this.neck = new MyCone(this.scene, 10, 1);
@@ -26,7 +28,79 @@ class MyBird extends CGFobject {
         this.eye = new MySphere(this.scene, 10, 10, 0.1);
         this.innerWing = new MyQuadWing(this.scene);
         this.outerWing = new MyTriangle(this.scene);
+
+        this.adaptTextureCoordsWing();
     }
+
+    initMaterials() {
+
+        // "Normal" default material, for applying textures 
+    
+        this.defaultBirdMaterial = new CGFappearance(this.scene);
+        this.defaultBirdMaterial.setAmbient(0.5, 0.5, 0.5, 1);
+        this.defaultBirdMaterial.setDiffuse(0.7, 0.7, 0.7, 1);
+        this.defaultBirdMaterial.setSpecular(0.2, 0.2, 0.2, 1);
+        this.defaultBirdMaterial.setShininess(10.0);
+
+
+        // Yellowish material for the beak
+
+        this.beakMaterial = new CGFappearance(this.scene);
+        this.beakMaterial.setAmbient(1.0, 0.6, 0.2, 1);
+        this.beakMaterial.setDiffuse(1.0, 0.6, 0.2, 1);
+        this.beakMaterial.setSpecular(0.2, 0.2, 0.2, 1);
+        this.beakMaterial.setShininess(10.0);
+
+
+        // Dark material for the eyes
+
+        this.eyeMaterial = new CGFappearance(this.scene);
+        this.eyeMaterial.setAmbient(0.1, 0.1, 0.1, 1);
+        this.eyeMaterial.setDiffuse(0.1, 0.1, 0.1, 1);
+        this.eyeMaterial.setSpecular(0.5, 0.5, 0.5, 1);
+        this.eyeMaterial.setShininess(10.0);
+    }
+
+    initTextures() {
+        this.feathersTexture = new CGFtexture(this.scene, 'images/feathers2.jpg');
+    }
+
+    adaptTextureCoordsWing() {
+
+        this.innerWing.texCoords = [
+			0, 2,
+			1, 1,
+			0, 0,
+            2, 0,
+
+            0, 2,
+			1, 1,
+			0, 0,
+			2, 0
+		];
+
+        this.outerWing.texCoords = [
+			// 0, 1,
+			// 1, 1,
+			// 0, -1,
+
+			// 0, 1,
+			// 1, 1,
+            // 0, -1
+            
+            0, 1.5,
+			1.5, 1.5,
+			0, -1,
+
+			0, 1.5,
+			1.5, 1.5,
+			0, -1
+        ];
+
+        this.innerWing.updateTexCoordsGLBuffers();
+        this.outerWing.updateTexCoordsGLBuffers();
+    }
+
 
     update(t) {
         // this.updateHeightOsc(t);
@@ -70,6 +144,9 @@ class MyBird extends CGFobject {
         this.scene.rotate(this.orientation, 0, 1, 0);
         this.scene.scale(this.birdSize * this.scaleFactor, this.birdSize * this.scaleFactor, this.birdSize * this.scaleFactor);
 
+        this.defaultBirdMaterial.setTexture(this.feathersTexture);
+        this.defaultBirdMaterial.apply();
+
         // Body
 
         this.scene.pushMatrix();
@@ -90,6 +167,7 @@ class MyBird extends CGFobject {
 
         // Inner Wing #1
 
+        this.defaultBirdMaterial.setTextureWrap('REPEAT', 'REPEAT');
         this.scene.pushMatrix();
         this.scene.translate(0.75, 0, 0.8);
         this.scene.scale(0.9, 0.9, 0.75);
@@ -151,8 +229,9 @@ class MyBird extends CGFobject {
 
         // Eye #1
 
+        this.eyeMaterial.apply();
         this.scene.pushMatrix();
-        this.scene.translate(0.3, 0.28, 2.3);
+        this.scene.translate(0.3, 0.25, 2.3);
         this.eye.display();
         this.scene.popMatrix();
 
@@ -160,10 +239,21 @@ class MyBird extends CGFobject {
         // Eye #2
         
         this.scene.pushMatrix();
-        this.scene.translate(-0.3, 0.28, 2.3);
+        this.scene.translate(-0.3, 0.25, 2.3);
         this.eye.display();
         this.scene.popMatrix();
 
+
+        // Beak
+        
+        this.beakMaterial.apply();
+        this.scene.pushMatrix();
+        this.scene.translate(0, 0, 2.4);
+        this.scene.rotate(Math.PI / 4, 0, 0, 1);
+        this.scene.rotate(Math.PI / 2, 1, 0, 0);
+        this.scene.scale(0.15, 0.4, 0.15);
+        this.beak.display();
+        this.scene.popMatrix();
 
 
         this.scene.popMatrix();
