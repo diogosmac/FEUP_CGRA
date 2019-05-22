@@ -16,6 +16,8 @@ class MyInterface extends CGFinterface {
         
         var obj = this;
 
+        this.gui.add(this.scene, 'speedFactor', 0.1, 3).name('Speed Factor');
+        this.gui.add(this.scene.bird, 'scaleFactor', 0.5, 3).name('Scale Factor');
 
         this.initKeys();
 
@@ -23,19 +25,19 @@ class MyInterface extends CGFinterface {
     }
 
     initKeys() {
-		this.scene.gui = this;
-		this.processKeyboard = function() {};
-		this.activeKeys = {};
+		  this.scene.gui = this;
+		  this.processKeyboard = function() {};
+		  this.activeKeys = {};
     }
     
     processKeyDown(event) {
-		this.activeKeys[event.code] = true;
-	}
+		  this.activeKeys[event.code] = true;
+	  }
     processKeyUp(event) {
-		this.activeKeys[event.code] = false;
-	}
+		  this.activeKeys[event.code] = false;
+	  }
     
     isKeyPressed(keyCode) {
-		return this.activeKeys[keyCode] || false;
-	}
+		  return this.activeKeys[keyCode] || false;
+	  }
 }

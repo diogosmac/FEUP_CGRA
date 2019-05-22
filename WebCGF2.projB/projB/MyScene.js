@@ -38,9 +38,7 @@ class MyScene extends CGFscene {
                                  this.welcomeMatTexture,
                                  this.windowTexture);
 
-        this.bird = new MyBird(this, 1);
-
-        this.sphere = new MySphere(this, 20, 20, 1);
+        this.bird = new MyBird(this, 1, 0, 10, 0);
 
         this.timeOfDay = 0;
 
@@ -51,9 +49,12 @@ class MyScene extends CGFscene {
         // this.defaultMaterial.setShininess(10.0);
         
 
-        //Objects connected to MyInterface
+        // Objects connected to MyInterface
 
-        this.setUpdatePeriod(100);
+        this.setUpdatePeriod(80);
+
+        this.speedFactor = 1;
+
     }
 
     initMaterials() {
@@ -105,26 +106,33 @@ class MyScene extends CGFscene {
         this.setSpecular(0.2, 0.4, 0.8, 1.0);
         this.setShininess(10.0);
     }
-    update(t){
+
+    update(t) {
         this.checkKeys();
+        this.bird.update(t);
     }
 
     checkKeys() {
-        var text = "Keys pressed: ";
-        var keysPressed = false;
-
         if (this.gui.isKeyPressed("KeyW")) {
-            text += " W ";
-            keysPressed = true;
+            this.bird.accelerate(this.speedFactor);
         }
 
         if (this.gui.isKeyPressed("KeyS")) {
-            text += " S ";
-            keysPressed = true;
+            this.bird.accelerate(-this.speedFactor);
         }
 
-        if (keysPressed)
-            console.log(text);
+        if(this.gui.isKeyPressed("KeyA")) {
+            this.bird.turn(this.speedFactor / 20);
+        }
+
+        if(this.gui.isKeyPressed("KeyD")) {
+            this.bird.turn(-this.speedFactor / 20);
+        }
+
+        if(this.gui.isKeyPressed("KeyR")) {
+            this.bird.resetBird();
+        }
+
     }
 
     display() {
@@ -147,13 +155,7 @@ class MyScene extends CGFscene {
         // ---- BEGIN Primitive drawing section
 
         this.pushMatrix();
-        this.translate(0, 10, 0);
         this.bird.display();
-        this.popMatrix();
-
-        this.pushMatrix();
-        this.translate(5, 10, 0);
-        this.sphere.display();
         this.popMatrix();
 
         this.pushMatrix();
