@@ -17,6 +17,7 @@ class MyBird extends CGFobject {
 
 
         this.birdSize = birdSize;
+        
         this.tail = new MyCone(this.scene, 10, 1);
         this.body = new MyCylinder(this.scene, 10);
         this.neck = new MyCone(this.scene, 10, 1);
@@ -28,8 +29,8 @@ class MyBird extends CGFobject {
     }
 
     update(t) {
-        this.updateHeightOsc(t);
-        this.updatePosition(t);
+        // this.updateHeightOsc(t);
+        // this.updatePosition(t);
     }
 
     updateHeightOsc(t) {
@@ -149,10 +150,20 @@ class MyBird extends CGFobject {
 
 
         // Eye #1
+
         this.scene.pushMatrix();
-        this.scene.translate(0.3, 0.3, 2.5);
+        this.scene.translate(0.3, 0.28, 2.3);
         this.eye.display();
         this.scene.popMatrix();
+
+
+        // Eye #2
+        
+        this.scene.pushMatrix();
+        this.scene.translate(-0.3, 0.28, 2.3);
+        this.eye.display();
+        this.scene.popMatrix();
+
 
 
         this.scene.popMatrix();
