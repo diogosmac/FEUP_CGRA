@@ -17,6 +17,11 @@ class MyBird extends CGFobject {
         this.yPosition = this.initialY = initialY;
         this.zPosition = this.initialZ = initialZ;
 
+        this.innerWingAnimAngle = 3;
+        this.innerWingAnimAmp = 0.5;
+        this.outerWingAnimAngle = 0;
+
+        this.testeMexerAsas = true;
 
         this.birdSize = birdSize;
 
@@ -103,22 +108,37 @@ class MyBird extends CGFobject {
 
 
     update(t) {
-        // this.updateHeightOsc(t);
-        // this.updatePosition(t);
+        this.updateHeightOsc(t);
+        this.updatePosition(t);
+
+        // if(this.testeMexerAsas) {
+        //     this.innerWingAnimAngle++;
+        //     if(this.innerWingAnimAngle > 3)
+        //         this.testeMexerAsas = false;
+        // }
+        // else {
+        //     this.innerWingAnimAngle--;
+        //     if(this.innerWingAnimAngle < 4)
+        //         this.testeMexerAsas = true;   
+        // }
+
+        this.updateWingsPosition(t);
     }
 
     updateHeightOsc(t) {
         this.heightOffset = this.heightAmp * Math.sin(2 * Math.PI * t / 1000);
     }
 
+    updateWingsPosition(t) {
+        
+    }
+    
+
     updatePosition(t) {
-        var offset = (this.velocity * (t / 1000)) / 10000000;
-        this.xPosition = offset * Math.cos(this.orientation);
-        this.zPosition = offset * Math.sin(this.orientation);
-        // console.log('velocity: ' + this.velocity);
-        // console.log('orienation: ' + this.orientation);
-        // console.log('x: ' + this.xPosition + '; y: ' + this.yPosition + '; z: ' + this.zPosition);
-        // console.log('----');
+        var timeDiff = t - this.scene.lastTime;
+        var offset = (this.velocity * (timeDiff / 1000));
+        this.xPosition += offset * Math.sin(this.orientation);
+        this.zPosition += offset * Math.cos(this.orientation);
     }
 
     turn(v) {
@@ -127,6 +147,9 @@ class MyBird extends CGFobject {
 
     accelerate(v) {
         this.velocity += v;
+
+        if(this.velocity < 0)
+            this.velocity = 0;
     }
 
     resetBird() {
@@ -169,7 +192,11 @@ class MyBird extends CGFobject {
 
         this.defaultBirdMaterial.setTextureWrap('REPEAT', 'REPEAT');
         this.scene.pushMatrix();
+        
+        this.scene.rotate(this.innerWingAnimAngle, 0, 0, 1);
+
         this.scene.translate(0.75, 0, 0.8);
+        
         this.scene.scale(0.9, 0.9, 0.75);
         this.scene.rotate(Math.PI / 2, 1, 0, 0);
         this.innerWing.display();
@@ -179,7 +206,12 @@ class MyBird extends CGFobject {
         // Inner Wing #2
         
         this.scene.pushMatrix();
+        
+        this.scene.rotate(-this.innerWingAnimAngle, 0, 0, 1);
+
         this.scene.translate(-0.75, 0, 0.8);
+
+        
         this.scene.scale(0.9, 0.9, 0.75);
         this.scene.rotate(Math.PI / 2, 1, 0, 0);
         this.innerWing.display();
@@ -189,6 +221,9 @@ class MyBird extends CGFobject {
         // Outer Wing # 1
 
         this.scene.pushMatrix();
+        
+        this.scene.rotate(this.outerWingAnimAngle, 0, 0, 1);
+        
         this.scene.translate(-1.20, 0, 0.8);
         this.scene.scale(0.8, 0.8, 0.26);
         this.scene.rotate(Math.PI / 4, 0, 1, 0);
@@ -200,6 +235,9 @@ class MyBird extends CGFobject {
         // Outer Wing # 2
 
         this.scene.pushMatrix();
+        
+        this.scene.rotate(-this.outerWingAnimAngle, 0, 0, 1);
+        
         this.scene.translate(1.20, 0, 0.8);
         this.scene.rotate(Math.PI, 0, 1, 0);
         this.scene.scale(0.8, 0.8, 0.26);

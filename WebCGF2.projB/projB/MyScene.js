@@ -55,6 +55,7 @@ class MyScene extends CGFscene {
 
         this.speedFactor = 1;
 
+        this.lastTime = 0;
     }
 
     initMaterials() {
@@ -108,8 +109,15 @@ class MyScene extends CGFscene {
     }
 
     update(t) {
-        this.checkKeys();
-        this.bird.update(t);
+
+        if(this.lastTime == 0) {
+            this.lastTime = t;
+        }
+        else {
+            this.checkKeys();
+            this.bird.update(t);
+            this.lastTime = t;
+        }
     }
 
     checkKeys() {
@@ -122,11 +130,11 @@ class MyScene extends CGFscene {
         }
 
         if(this.gui.isKeyPressed("KeyA")) {
-            this.bird.turn(this.speedFactor / 20);
+            this.bird.turn(this.speedFactor / 10);
         }
 
         if(this.gui.isKeyPressed("KeyD")) {
-            this.bird.turn(-this.speedFactor / 20);
+            this.bird.turn(-this.speedFactor / 10);
         }
 
         if(this.gui.isKeyPressed("KeyR")) {
