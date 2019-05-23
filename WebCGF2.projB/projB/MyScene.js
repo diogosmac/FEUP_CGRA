@@ -68,8 +68,8 @@ class MyScene extends CGFscene {
         this.setUpdatePeriod(80);
 
         this.speedFactor = 1;
-
         this.lastTime = 0;
+
     }
 
     initMaterials() {
@@ -123,8 +123,7 @@ class MyScene extends CGFscene {
     }
 
     update(t) {
-
-        if(this.lastTime == 0) {
+        if (this.lastTime == 0) {
             this.lastTime = t;
         }
         else {
