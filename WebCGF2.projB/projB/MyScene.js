@@ -42,20 +42,34 @@ class MyScene extends CGFscene {
 
         this.timeOfDay = 0;
 
-        // this.defaultMaterial = new CGFappearance(this);
-        // this.defaultMaterial.setAmbient(0.6, 0.6, 0.6, 1.0);
-        // this.defaultMaterial.setDiffuse(0.7, 0.7, 0.7, 1.0);
-        // this.defaultMaterial.setSpecular(0.1, 0.1, 0.1, 1.0);
-        // this.defaultMaterial.setShininess(10.0);
+        this.heightShader = new CGFshader(
+            this.gl,
+            "shaders/heightShader.vert",
+            "shaders/heightShader.frag"
+        );
+
+        // this.heightShader.setUniformsValues({uSampler: 0});
+        this.heightShader.setUniformsValues({uSamplerHeightMap: 1});
+        this.terrainTexture = new CGFtexture(this, "imagesProj/terrain.jpg");
+        this.heightTexture = new CGFtexture(this, "imagesProj/heightmap.jpg");
+    
+
+        this.terrainMaterial = new CGFappearance(this);
+        this.terrainMaterial.setAmbient(0.6, 0.6, 0.6, 1.0);
+        this.terrainMaterial.setDiffuse(0.7, 0.7, 0.7, 1.0);
+        this.terrainMaterial.setSpecular(0.1, 0.1, 0.1, 1.0);
+        this.terrainMaterial.setShininess(10.0);
+        this.terrainMaterial.setTexture(this.terrainTexture);
         
 
         // Objects connected to MyInterface
 
+
         this.setUpdatePeriod(80);
 
         this.speedFactor = 1;
-
         this.lastTime = 0;
+
     }
 
     initMaterials() {
@@ -109,8 +123,7 @@ class MyScene extends CGFscene {
     }
 
     update(t) {
-
-        if(this.lastTime == 0) {
+        if (this.lastTime == 0) {
             this.lastTime = t;
         }
         else {
@@ -160,24 +173,40 @@ class MyScene extends CGFscene {
         //Apply default appearance
         this.setDefaultAppearance();
 
+        // activate shader
+		this.setActiveShader(this.heightShader);
+		this.pushMatrix();
+
+		// bind textures to texture units
+        this.terrainMaterial.apply();
+		this.heightTexture.bind(1);
+
         // ---- BEGIN Primitive drawing section
+
+        this.pushMatrix();
+        this.rotate(-0.5 * Math.PI, 1, 0, 0);
+        this.scale(60, 60, 1);
+        this.plane.display();
+        this.popMatrix();
+
+        this.popMatrix();
+
+        // restore default shader to draw rest of scene
+        this.setActiveShader(this.defaultShader);
 
         this.pushMatrix();
         this.bird.display();
         this.popMatrix();
 
         this.pushMatrix();
-        this.rotate(-0.5*Math.PI, 1, 0, 0);
-        this.scale(60, 60, 1);
-        // this.plane.display();
-        this.popMatrix();
-
-        this.pushMatrix();
+        this.translate(14, 2, 6);
         this.house.display();
         this.popMatrix();
 
         this.cubeMap.cubeMapMaterial.apply();
         this.cubeMap.display();
         // ---- END Primitive drawing section
+
     }
+
 }
