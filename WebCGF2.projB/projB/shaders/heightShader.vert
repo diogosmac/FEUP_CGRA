@@ -20,7 +20,7 @@ void main() {
 	vTextureCoord = aTextureCoord;
 
 	vec4 colorMap = texture2D(uSamplerHeightMap, aTextureCoord);
-	verticalOffset.z = colorMap.b * 5.0;
+	verticalOffset.z = colorMap.b * 15.0;
 
 	gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition + verticalOffset, 1.0);
 }
