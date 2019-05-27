@@ -149,14 +149,24 @@ class MyScene extends CGFscene {
 
         if(this.gui.isKeyPressed("KeyP")) {
             // this.bird.time = 0;
-            this.bird.changeState(this.bird.states.GOING_DOWN);
+            if(this.bird.currentState == this.bird.states.NORMAL)
+                this.bird.changeState(this.bird.states.GOING_DOWN);
             // this.bird.updateFall();
         }
 
     }
 
     verifyBranchCollisions(bird) {
-        
+        for(var i = 0; i < this.branches.length; i++) {
+            if(this.branches[i].collidedWithBird(bird)) {
+                if(this.bird.branch == null) {
+                    this.branches[i].birdHoldingIt = true;
+                    this.bird.branch = this.branches[i]; // passes the branch reference to the bird
+                    this.branches.splice(i, 1);
+                    return;
+                }
+            }
+        }
     }
 
     display() {
@@ -192,8 +202,8 @@ class MyScene extends CGFscene {
 
         this.nest.display();
 
-        // for(var i = 0; i < this.branches.length; i++)
-        //     this.branches[i].display();
+        for(var i = 0; i < this.branches.length; i++)
+            this.branches[i].display();
 
 
         this.cubeMap.cubeMapMaterial.apply();

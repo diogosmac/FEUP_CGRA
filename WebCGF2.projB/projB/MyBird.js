@@ -23,6 +23,14 @@ class MyBird extends CGFobject {
 
         // this.fallOffset = 0;
 
+        this.birdSize = birdSize;              
+
+        // // 1.20 = half of the cylinder plus a little more, for the hitbox, in order to grab branches
+        // this.height = this.birdSize * 1.20
+
+        // // 1 = diameter of the bird's body, plus a little more
+        // this.width = this.birdSize * 1;
+
         this.orientation = 0; // angle related to the y axis
         this.velocity = 0;
         this.xPosition = this.initialX = initialX;
@@ -41,8 +49,6 @@ class MyBird extends CGFobject {
         this.outerWingAnimAngle = 20;
         this.outerWingAnimAmp = 0.5;
 
-        this.birdSize = birdSize;
-
         this.tail = new MyCone(this.scene, 10, 1);
         this.body = new MyCylinder(this.scene, 10);
         this.neck = new MyCone(this.scene, 10, 1);
@@ -53,9 +59,12 @@ class MyBird extends CGFobject {
         this.outerWing = new MyTriangle(this.scene);
 
 
-        this.hasBranch = false;
+        // this.hasBranch = true;
         
-        // will contain the reference to the branch the bird is currently holding, if any
+        // // will contain the reference to the branch the bird is currently holding, if any
+        // this.branch = null;
+
+        // tree branch that the bird might be holding (null in the beggining)
         this.branch = null;
 
         this.adaptTextureCoordsWing();
@@ -172,7 +181,7 @@ class MyBird extends CGFobject {
 
         if(this.currentState == this.states.GOING_DOWN && this.yPosition < 0.7) { // bird reached the ground
             this.currentState = this.states.GOING_UP;
-            if(!this.hasBranch)
+            if(this.branch == null)
                 this.scene.verifyBranchCollisions(this);
             // else
             //     this.scene.verifyNestCollisions(this);
@@ -205,13 +214,6 @@ class MyBird extends CGFobject {
     }
 
     display() {
-
-        // var offset;
-        // if(this.currentState == states.NORMAL)
-        //     offset = this.heightOffset;
-        // else {
-        //     // fazer aqui ele a descer
-        // }
 
         this.scene.pushMatrix();
         this.scene.translate(this.xPosition, this.yPosition + this.heightOffset, this.zPosition);
@@ -343,9 +345,19 @@ class MyBird extends CGFobject {
         this.scene.translate(0, 0, 2.4);
         this.scene.rotate(Math.PI / 4, 0, 0, 1);
         this.scene.rotate(Math.PI / 2, 1, 0, 0);
-        this.scene.scale(0.15, 0.4, 0.15);
+        this.scene.scale(0.2, 0.4, 0.2);
         this.beak.display();
         this.scene.popMatrix();
+
+
+        // Branch, that the bird is holding (if any)
+
+        if(this.branch != null) {
+            this.scene.pushMatrix();
+            this.scene.translate(0, -0.15, 2.6);
+            this.branch.display();
+            this.scene.popMatrix();
+        }
 
 
         this.scene.popMatrix();

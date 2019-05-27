@@ -6,9 +6,13 @@ class MyTreeBranch extends CGFobject {
         this.orientation = orientation;
 
         this.width = 3.5;
-        this.radius = 0.15;
+        this.radius = 0.1;
 
         this.initTextures();
+
+        // if the bird is not holding the branch, the branch can be in its original position, with orienatation;
+        // if the bird is holding the branch, the branch should not be in its original position;
+        this.birdHoldingIt = false;
 
         this.branch = new MyCylinder(this.scene, 10);
     }
@@ -18,7 +22,17 @@ class MyTreeBranch extends CGFobject {
     }
 
     collidedWithBird(bird) {
+        var birdCenterX = bird.xPosition * Math.cos(bird.orientation);
+        var birdCenterZ = (bird.zPosition + 1) * Math.sin(bird.orientation);
 
+        var totalDistance = Math.sqrt(Math.pow(this.x - birdCenterX, 2) + Math.pow(this.z - birdCenterZ, 2));
+
+        console.log(totalDistance);
+
+        if(totalDistance < 5)
+            return true;
+
+        return false;
     }
 
 
@@ -28,9 +42,10 @@ class MyTreeBranch extends CGFobject {
 
         this.scene.pushMatrix();
 
-        this.scene.translate(this.x, 0, this.z);
-
-        this.scene.rotate(this.orientation, 0, 1, 0);
+        if(!this.birdHoldingIt) {
+            this.scene.translate(this.x, 0, this.z);
+            this.scene.rotate(this.orientation, 0, 1, 0);
+        }
 
         this.scene.translate(1.75, 0.15, 0);
         this.scene.rotate(Math.PI / 2, 0, 0, 1);
