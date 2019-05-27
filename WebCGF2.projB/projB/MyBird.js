@@ -50,12 +50,6 @@ class MyBird extends CGFobject {
         this.innerWing = new MyQuadWing(this.scene);
         this.outerWing = new MyTriangle(this.scene);
 
-
-        // this.hasBranch = true;
-        
-        // // will contain the reference to the branch the bird is currently holding, if any
-        // this.branch = null;
-
         // tree branch that the bird might be holding (null in the beggining)
         this.branch = null;
 

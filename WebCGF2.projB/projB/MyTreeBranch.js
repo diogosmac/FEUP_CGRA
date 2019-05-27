@@ -10,7 +10,7 @@ class MyTreeBranch extends CGFobject {
 
         this.initTextures();
 
-        // if the bird is not holding the branch, the branch can be in its original position, with orienatation;
+        // if the bird is not holding the branch, the branch can be in its original position, with orientation;
         // if the bird is holding the branch, the branch should not be in its original position;
         // -----
         // if the branch is in the nest, it should only use, for display, its orientation
