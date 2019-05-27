@@ -21,15 +21,7 @@ class MyBird extends CGFobject {
 
         this.currentState = this.states.NORMAL;
 
-        // this.fallOffset = 0;
-
         this.birdSize = birdSize;              
-
-        // // 1.20 = half of the cylinder plus a little more, for the hitbox, in order to grab branches
-        // this.height = this.birdSize * 1.20
-
-        // // 1 = diameter of the bird's body, plus a little more
-        // this.width = this.birdSize * 1;
 
         this.orientation = 0; // angle related to the y axis
         this.velocity = 0;
@@ -41,7 +33,7 @@ class MyBird extends CGFobject {
         // (once going down, once going up). Therefore, in order for this movement
         // to last 2 seconds, the fall velocity should be equal to the bird's initial
         // y position.
-        this.fallVelocity = this.initialY;
+        this.fallVelocity = this.initialY - 4.5;
 
         this.innerWingAnimAngle = 0;
         this.innerWingAnimAmp = 0.6;
@@ -161,16 +153,9 @@ class MyBird extends CGFobject {
         var offset = (this.velocity * (timeDiff / 1000));
         this.xPosition += offset * Math.sin(this.orientation);
         this.zPosition += offset * Math.cos(this.orientation);
-
     }
 
-    updateFall(t) {
-        // var timeDiff = t - this.scene.lastTime;
-        // var movAmp = this.initialY / 2 - 0.5;
-        
-        // this.fallOffset = movAmp * Math.sin(2 * Math.PI * 0.5 * (this.time / 1000)) + movAmp;
-        // this.time += timeDiff;
-        
+    updateFall(t) {  
         var timeDiff = t - this.scene.lastTime;
         var offset = (this.fallVelocity * (timeDiff / 1000));
         
@@ -179,12 +164,12 @@ class MyBird extends CGFobject {
         else if(this.currentState == this.states.GOING_UP)
             this.yPosition += offset;
 
-        if(this.currentState == this.states.GOING_DOWN && this.yPosition < 0.7) { // bird reached the ground
+        if(this.currentState == this.states.GOING_DOWN && this.yPosition < 4.5) { // bird reached the ground
             this.currentState = this.states.GOING_UP;
             if(this.branch == null)
                 this.scene.verifyBranchCollisions(this);
-            // else
-            //     this.scene.verifyNestCollisions(this);
+            else
+                this.scene.verifyNestCollisions(this);
         }
 
         if(this.currentState == this.states.GOING_UP && this.yPosition >= this.initialY) { // finish movement
@@ -218,6 +203,8 @@ class MyBird extends CGFobject {
         this.scene.pushMatrix();
         this.scene.translate(this.xPosition, this.yPosition + this.heightOffset, this.zPosition);
         this.scene.rotate(this.orientation, 0, 1, 0);
+        
+        this.scene.pushMatrix();
         this.scene.scale(this.birdSize * this.scaleFactor, this.birdSize * this.scaleFactor, this.birdSize * this.scaleFactor);
 
         this.defaultBirdMaterial.setTexture(this.feathersTexture);
@@ -226,6 +213,7 @@ class MyBird extends CGFobject {
         // Body
 
         this.scene.pushMatrix();
+        this.scene.translate(0, 0, -1.5);
         this.scene.rotate(Math.PI / 2, 1, 0, 0);
         this.scene.scale(0.4, 1.5, 0.4);
         this.body.display();
@@ -235,6 +223,7 @@ class MyBird extends CGFobject {
         // Tail
 
         this.scene.pushMatrix();
+        this.scene.translate(0, 0, -1.5);
         this.scene.rotate(-Math.PI / 2, 1, 0, 0);
         this.scene.scale(0.4, 1, 0.4);
         this.tail.display();
@@ -248,7 +237,7 @@ class MyBird extends CGFobject {
         
         this.scene.rotate(this.innerWingAnimAngle, 0, 0, 1);
 
-        this.scene.translate(0.75, 0, 0.8);
+        this.scene.translate(0.75, 0, -0.7);
         this.scene.scale(0.9, 0.9, 0.75);
         this.scene.rotate(Math.PI / 2, 1, 0, 0);
         this.innerWing.display();
@@ -261,7 +250,7 @@ class MyBird extends CGFobject {
         
         this.scene.rotate(-this.innerWingAnimAngle, 0, 0, 1);
 
-        this.scene.translate(-0.75, 0, 0.8);
+        this.scene.translate(-0.75, 0, -0.7);
         this.scene.scale(0.9, 0.9, 0.75);
         this.scene.rotate(Math.PI / 2, 1, 0, 0);
         this.innerWing.display();
@@ -274,7 +263,7 @@ class MyBird extends CGFobject {
         
         this.scene.rotate(-this.innerWingAnimAngle, 0, 0, 1);
 
-        this.scene.translate(-1.20, 0, 0.8);
+        this.scene.translate(-1.20, 0, -0.7);
      
         this.scene.rotate(this.outerWingAnimAngle, 0, 0, 1);
         
@@ -291,7 +280,7 @@ class MyBird extends CGFobject {
         
         this.scene.rotate(this.innerWingAnimAngle, 0, 0, 1);
 
-        this.scene.translate(1.20, 0, 0.8);
+        this.scene.translate(1.20, 0, -0.7);
         
         this.scene.rotate(-this.outerWingAnimAngle, 0, 0, 1);
         
@@ -306,7 +295,6 @@ class MyBird extends CGFobject {
         // Neck
         
         this.scene.pushMatrix();
-        this.scene.translate(0, 0, 1.5);
         this.scene.rotate(Math.PI / 2, 1, 0, 0);
         this.scene.scale(0.4, 0.8, 0.4);
         this.neck.display();
@@ -316,7 +304,7 @@ class MyBird extends CGFobject {
         // Head
 
         this.scene.pushMatrix();
-        this.scene.translate(0, 0, 2);
+        this.scene.translate(0, 0, 0.5);
         this.head.display();
         this.scene.popMatrix();
 
@@ -325,7 +313,7 @@ class MyBird extends CGFobject {
 
         this.eyeMaterial.apply();
         this.scene.pushMatrix();
-        this.scene.translate(0.3, 0.25, 2.3);
+        this.scene.translate(0.3, 0.25, 0.8);
         this.eye.display();
         this.scene.popMatrix();
 
@@ -333,7 +321,7 @@ class MyBird extends CGFobject {
         // Eye #2
         
         this.scene.pushMatrix();
-        this.scene.translate(-0.3, 0.25, 2.3);
+        this.scene.translate(-0.3, 0.25, 0.8);
         this.eye.display();
         this.scene.popMatrix();
 
@@ -342,7 +330,7 @@ class MyBird extends CGFobject {
         
         this.beakMaterial.apply();
         this.scene.pushMatrix();
-        this.scene.translate(0, 0, 2.4);
+        this.scene.translate(0, 0, 0.9);
         this.scene.rotate(Math.PI / 4, 0, 0, 1);
         this.scene.rotate(Math.PI / 2, 1, 0, 0);
         this.scene.scale(0.2, 0.4, 0.2);
@@ -350,17 +338,20 @@ class MyBird extends CGFobject {
         this.scene.popMatrix();
 
 
+        this.scene.popMatrix();
+
+
         // Branch, that the bird is holding (if any)
 
         if(this.branch != null) {
             this.scene.pushMatrix();
-            this.scene.translate(0, -0.15, 2.6);
+            this.scene.translate(0, -0.15, 1.1 * this.birdSize * this.scaleFactor);
             this.branch.display();
             this.scene.popMatrix();
         }
 
-
         this.scene.popMatrix();
+
     }
 
 

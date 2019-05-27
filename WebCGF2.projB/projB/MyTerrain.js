@@ -21,7 +21,7 @@ class MyTerrain extends CGFobject {
     initMaterialsAndTextures() {
         // this.heightShader.setUniformsValues({uSampler: 0});
         this.terrainTexture = new CGFtexture(this.scene, "imagesProj/terrain.jpg");
-        this.heightTexture = new CGFtexture(this.scene, "imagesProj/heightmapMod.jpg");
+        this.heightTexture = new CGFtexture(this.scene, "imagesProj/heightmapMod3.jpg");
         this.altimetryTexture = new CGFtexture(this.scene, "imagesProj/altimetry.png");
 
         this.terrainMaterial = new CGFappearance(this.scene);

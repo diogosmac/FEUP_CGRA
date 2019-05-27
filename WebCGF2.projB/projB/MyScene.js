@@ -39,15 +39,26 @@ class MyScene extends CGFscene {
                                  this.windowTexture);
 
         this.bird = new MyBird(this, 1, 0, 10, 0);
-        this.nest = new MyNest(this);
+
+        this.nest = new MyNest(this, -8, -8, 3);
 
         this.numBranches = 5;
 
         this.branches = [];
-
+    
         for(var i = 0; i < this.numBranches; i++) {
-            var randomX = Math.floor(Math.random() * 20) - 10;
-            var randomZ = Math.floor(Math.random() * 20) - 10;
+            var location = Math.floor(Math.random() * 2);
+            var randomX, randomZ;
+
+            if(location) {
+                randomX = Math.floor(Math.random() * 6) + 9; // de 9 a 14
+                randomZ = Math.floor(Math.random() * 22) - 10; // de -10 a 11
+            }
+            else {
+                randomX = Math.floor(Math.random() * 11) - 1; // de -1 a 9
+                randomZ = Math.floor(Math.random() * 7) + 5; // de 5 a 11
+            }
+
             var randomOr = Math.floor(Math.random() * 360);
 
             this.branches.push(new MyTreeBranch(this, randomX, randomZ, randomOr));
@@ -148,24 +159,29 @@ class MyScene extends CGFscene {
         }
 
         if(this.gui.isKeyPressed("KeyP")) {
-            // this.bird.time = 0;
             if(this.bird.currentState == this.bird.states.NORMAL)
                 this.bird.changeState(this.bird.states.GOING_DOWN);
-            // this.bird.updateFall();
         }
-
     }
 
     verifyBranchCollisions(bird) {
         for(var i = 0; i < this.branches.length; i++) {
             if(this.branches[i].collidedWithBird(bird)) {
                 if(this.bird.branch == null) {
-                    this.branches[i].birdHoldingIt = true;
+                    this.branches[i].currentState = this.branches[i].states.PICKED_UP;
                     this.bird.branch = this.branches[i]; // passes the branch reference to the bird
                     this.branches.splice(i, 1);
                     return;
                 }
             }
+        }
+    }
+
+    verifyNestCollisions(bird) {
+        if(this.nest.collidedWithBird(bird)) {
+            this.bird.branch.currentState = this.bird.branch.states.IN_NEST;
+            this.nest.branches.push(this.bird.branch); // passes the branch reference to the nest
+            this.bird.branch = null;
         }
     }
 
@@ -195,12 +211,15 @@ class MyScene extends CGFscene {
         this.popMatrix();
 
         this.pushMatrix();
-        this.translate(2, 3.8, 8);
+        this.translate(-7, 3.8, 8);
         this.rotate(Math.PI, 0, 1, 0);
         this.house.display();
         this.popMatrix();
 
+        this.pushMatrix();
+        this.translate(0, 3.7, 0);
         this.nest.display();
+        this.popMatrix();
 
         for(var i = 0; i < this.branches.length; i++)
             this.branches[i].display();

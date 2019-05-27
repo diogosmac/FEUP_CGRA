@@ -12,7 +12,14 @@ class MyTreeBranch extends CGFobject {
 
         // if the bird is not holding the branch, the branch can be in its original position, with orienatation;
         // if the bird is holding the branch, the branch should not be in its original position;
-        this.birdHoldingIt = false;
+        // -----
+        // if the branch is in the nest, it should only use, for display, its orientation
+        this.states = { NORMAL : 0,
+                        PICKED_UP : 1,
+                        IN_NEST : 2
+                      }
+
+        this.currentState = this.states.NORMAL;
 
         this.branch = new MyCylinder(this.scene, 10);
     }
@@ -22,14 +29,9 @@ class MyTreeBranch extends CGFobject {
     }
 
     collidedWithBird(bird) {
-        var birdCenterX = bird.xPosition * Math.cos(bird.orientation);
-        var birdCenterZ = (bird.zPosition + 1) * Math.sin(bird.orientation);
+        var totalDistance = Math.sqrt(Math.pow(this.x - bird.xPosition, 2) + Math.pow(this.z - bird.zPosition, 2));
 
-        var totalDistance = Math.sqrt(Math.pow(this.x - birdCenterX, 2) + Math.pow(this.z - birdCenterZ, 2));
-
-        console.log(totalDistance);
-
-        if(totalDistance < 5)
+        if(totalDistance < 1.5)
             return true;
 
         return false;
@@ -42,8 +44,11 @@ class MyTreeBranch extends CGFobject {
 
         this.scene.pushMatrix();
 
-        if(!this.birdHoldingIt) {
-            this.scene.translate(this.x, 0, this.z);
+        if(this.currentState == this.states.NORMAL) {
+            this.scene.translate(this.x, 3.7, this.z);
+            this.scene.rotate(this.orientation, 0, 1, 0);
+        }
+        else if (this.currentState == this.states.IN_NEST) {
             this.scene.rotate(this.orientation, 0, 1, 0);
         }
 
