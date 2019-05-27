@@ -10,17 +10,17 @@ uniform mat4 uNMatrix;
 varying vec2 vTextureCoord;
 
 uniform sampler2D uSamplerHeightMap;
-varying float verticalOffset;
+varying vec3 verticalOffset;
 
 uniform float normScale;
 
 void main() {
-	vec3 verticalOffset = vec3(0.0, 0.0, 0.0);
+	verticalOffset = vec3(0.0, 0.0, 0.0);
 
 	vTextureCoord = aTextureCoord;
 
 	vec4 colorMap = texture2D(uSamplerHeightMap, aTextureCoord);
-	verticalOffset.z = colorMap.b * 0.0;
+	verticalOffset.z = colorMap.b;
 
-	gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition + verticalOffset, 1.0);
+	gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition + verticalOffset * 15.0, 1.0);
 }

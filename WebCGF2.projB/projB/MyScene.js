@@ -195,8 +195,8 @@ class MyScene extends CGFscene {
         this.popMatrix();
 
         this.pushMatrix();
-        // this.translate(14, 2, 6);
-        this.translate(14, 0, 6);
+        this.translate(2, 3.8, 8);
+        this.rotate(Math.PI, 0, 1, 0);
         this.house.display();
         this.popMatrix();
 

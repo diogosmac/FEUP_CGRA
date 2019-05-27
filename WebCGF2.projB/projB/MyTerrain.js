@@ -15,13 +15,14 @@ class MyTerrain extends CGFobject {
     initShaders() {
         this.heightShader = new CGFshader(this.scene.gl, "shaders/heightShader.vert", "shaders/heightShader.frag");
         this.heightShader.setUniformsValues({uSamplerHeightMap: 1});
+        this.heightShader.setUniformsValues({uSamplerAltimetry: 2});
     }
 
     initMaterialsAndTextures() {
         // this.heightShader.setUniformsValues({uSampler: 0});
         this.terrainTexture = new CGFtexture(this.scene, "imagesProj/terrain.jpg");
-        this.heightTexture = new CGFtexture(this.scene, "imagesProj/heightmap.jpg");
-
+        this.heightTexture = new CGFtexture(this.scene, "imagesProj/heightmapMod.jpg");
+        this.altimetryTexture = new CGFtexture(this.scene, "imagesProj/altimetry.png");
 
         this.terrainMaterial = new CGFappearance(this.scene);
         this.terrainMaterial.setAmbient(0.6, 0.6, 0.6, 1.0);
@@ -39,6 +40,7 @@ class MyTerrain extends CGFobject {
 		// bind textures to texture units
         this.terrainMaterial.apply();
         this.heightTexture.bind(1);
+        this.altimetryTexture.bind(2);
         
         // display plane
         this.scene.pushMatrix();
