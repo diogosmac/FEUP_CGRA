@@ -11,19 +11,35 @@ class MyBird extends CGFobject {
         this.heightOffset = 0;
         this.heightAmp = 0.2;
 
+        this.time = 0;
+
+        // bird's possible states
+        this.states = { NORMAL : 0,
+                        GOING_DOWN : 1,
+                        GOING_UP : 2
+                      }
+
+        this.currentState = this.states.NORMAL;
+
+        // this.fallOffset = 0;
+
         this.orientation = 0; // angle related to the y axis
         this.velocity = 0;
         this.xPosition = this.initialX = initialX;
         this.yPosition = this.initialY = initialY;
         this.zPosition = this.initialZ = initialZ;
 
+        // when the bird is going down and up, it travels twice its initial y distance
+        // (once going down, once going up). Therefore, in order for this movement
+        // to last 2 seconds, the fall velocity should be equal to the bird's initial
+        // y position.
+        this.fallVelocity = this.initialY;
+
         this.innerWingAnimAngle = 0;
         this.innerWingAnimAmp = 0.6;
 
         this.outerWingAnimAngle = 20;
         this.outerWingAnimAmp = 0.5;
-
-        this.testeMexerAsas = true;
 
         this.birdSize = birdSize;
 
@@ -35,6 +51,12 @@ class MyBird extends CGFobject {
         this.eye = new MySphere(this.scene, 10, 10, 0.1);
         this.innerWing = new MyQuadWing(this.scene);
         this.outerWing = new MyTriangle(this.scene);
+
+
+        this.hasBranch = false;
+        
+        // will contain the reference to the branch the bird is currently holding, if any
+        this.branch = null;
 
         this.adaptTextureCoordsWing();
     }
@@ -100,11 +122,19 @@ class MyBird extends CGFobject {
         this.outerWing.updateTexCoordsGLBuffers();
     }
 
+    changeState(state) {
+        this.currentState = state;
+    }
 
     update(t) {
-        this.updateHeightOsc(t);
+        if(this.currentState == this.states.NORMAL)
+            this.updateHeightOsc(t);
+        else
+            this.updateFall(t);
+        
         this.updatePosition(t);
         this.updateWingsPosition(t);
+
     }
 
     updateHeightOsc(t) {
@@ -117,13 +147,43 @@ class MyBird extends CGFobject {
         this.outerWingAnimAngle = -this.outerWingAnimAmp * Math.sin(2 * Math.PI * freq * (t / 1000));
     }
     
-
     updatePosition(t) {
         var timeDiff = t - this.scene.lastTime;
         var offset = (this.velocity * (timeDiff / 1000));
         this.xPosition += offset * Math.sin(this.orientation);
         this.zPosition += offset * Math.cos(this.orientation);
+
     }
+
+    updateFall(t) {
+        // var timeDiff = t - this.scene.lastTime;
+        // var movAmp = this.initialY / 2 - 0.5;
+        
+        // this.fallOffset = movAmp * Math.sin(2 * Math.PI * 0.5 * (this.time / 1000)) + movAmp;
+        // this.time += timeDiff;
+        
+        var timeDiff = t - this.scene.lastTime;
+        var offset = (this.fallVelocity * (timeDiff / 1000));
+        
+        if(this.currentState == this.states.GOING_DOWN)
+            this.yPosition -= offset;
+        else if(this.currentState == this.states.GOING_UP)
+            this.yPosition += offset;
+
+        if(this.currentState == this.states.GOING_DOWN && this.yPosition < 0.7) { // bird reached the ground
+            this.currentState = this.states.GOING_UP;
+            if(!this.hasBranch)
+                this.scene.verifyBranchCollisions(this);
+            // else
+            //     this.scene.verifyNestCollisions(this);
+        }
+
+        if(this.currentState == this.states.GOING_UP && this.yPosition >= this.initialY) { // finish movement
+            this.yPosition = this.initialY;
+            this.currentState = this.states.NORMAL;
+        }
+    }
+
 
     turn(v) {
         this.orientation += v;
@@ -145,6 +205,13 @@ class MyBird extends CGFobject {
     }
 
     display() {
+
+        // var offset;
+        // if(this.currentState == states.NORMAL)
+        //     offset = this.heightOffset;
+        // else {
+        //     // fazer aqui ele a descer
+        // }
 
         this.scene.pushMatrix();
         this.scene.translate(this.xPosition, this.yPosition + this.heightOffset, this.zPosition);

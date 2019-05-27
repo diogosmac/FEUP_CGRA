@@ -39,6 +39,20 @@ class MyScene extends CGFscene {
                                  this.windowTexture);
 
         this.bird = new MyBird(this, 1, 0, 10, 0);
+        this.nest = new MyNest(this);
+
+        this.numBranches = 5;
+
+        this.branches = [];
+
+        for(var i = 0; i < this.numBranches; i++) {
+            var randomX = Math.floor(Math.random() * 20) - 10;
+            var randomZ = Math.floor(Math.random() * 20) - 10;
+            var randomOr = Math.floor(Math.random() * 360);
+
+            this.branches.push(new MyTreeBranch(this, randomX, randomZ, randomOr));
+        }
+
 
         this.timeOfDay = 0;
 
@@ -133,6 +147,16 @@ class MyScene extends CGFscene {
             this.bird.resetBird();
         }
 
+        if(this.gui.isKeyPressed("KeyP")) {
+            // this.bird.time = 0;
+            this.bird.changeState(this.bird.states.GOING_DOWN);
+            // this.bird.updateFall();
+        }
+
+    }
+
+    verifyBranchCollisions(bird) {
+        
     }
 
     display() {
@@ -161,9 +185,16 @@ class MyScene extends CGFscene {
         this.popMatrix();
 
         this.pushMatrix();
-        this.translate(14, 2, 6);
+        // this.translate(14, 2, 6);
+        this.translate(14, 0, 6);
         this.house.display();
         this.popMatrix();
+
+        this.nest.display();
+
+        // for(var i = 0; i < this.branches.length; i++)
+        //     this.branches[i].display();
+
 
         this.cubeMap.cubeMapMaterial.apply();
         this.cubeMap.display();
