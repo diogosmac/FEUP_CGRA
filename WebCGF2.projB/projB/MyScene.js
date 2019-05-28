@@ -72,23 +72,23 @@ class MyScene extends CGFscene {
         this.lightningScaleFactor = 0.5;
 
 
-        // this.lightning = new MyLightning(this);
+        this.lightning = new MyLightning(this);
 
-        // this.generateLightning = function () {
-        //     this.lightning.generate(
-        //         this.axiom,
-        //         {
-        //             "F": ["FF"],
-        //             "X": ["F[-X][X]F[-X]+FX"]
-        //         },
-        //         this.lightningAngle,
-        //         this.lightningIterations,
-        //         this.lightningScaleFactor
-        //     );
-        // }
+        this.generateLightning = function () {
+            this.lightning.generate(
+                this.lightningAxiom,
+                {
+                    "F": ["FF"],
+                    "X": ["F[-X][X]F[-X]+FX"]
+                },
+                this.lightningAngle,
+                this.lightningIterations,
+                this.lightningScaleFactor
+            );
+        }
 
 
-        // this.generateLightning(); // initial L system generation
+        this.generateLightning(); // initial L system generation
 
 
         
@@ -162,6 +162,7 @@ class MyScene extends CGFscene {
             this.bird.update(t);
             this.lastTime = t;
         }
+        this.lightning.update(t);
     }
 
     checkKeys() {
@@ -188,6 +189,12 @@ class MyScene extends CGFscene {
         if(this.gui.isKeyPressed("KeyP")) {
             if(this.bird.currentState == this.bird.states.NORMAL)
                 this.bird.changeState(this.bird.states.GOING_DOWN);
+        }
+
+        if(this.gui.isKeyPressed("KeyL")) {
+            if (this.lightning.shouldAnimate == false) { 
+                this.lightning.startAnimation();
+            }
         }
     }
 
@@ -231,25 +238,25 @@ class MyScene extends CGFscene {
 
         // ---- BEGIN Primitive drawing section
 
-        this.terrain.display();
+        // this.terrain.display();
 
         this.pushMatrix();
-        this.bird.display();
+        // this.bird.display();
         this.popMatrix();
 
         this.pushMatrix();
         this.translate(-7, 3.8, 8);
         this.rotate(Math.PI, 0, 1, 0);
-        this.house.display();
+        // this.house.display();
         this.popMatrix();
 
         this.pushMatrix();
         this.translate(0, 3.9, 0);
-        this.nest.display();
+        // this.nest.display();
         this.popMatrix();
 
         for(var i = 0; i < this.branches.length; i++)
-            this.branches[i].display();
+            // this.branches[i].display();
 
 
         this.cubeMap.cubeMapMaterial.apply();

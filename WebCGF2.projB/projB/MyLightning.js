@@ -15,8 +15,7 @@ class MyLightning extends MyLSystem {
         }
     }
 
-    startAnimation(t) {
-        this.animationStartTime = t;
+    startAnimation() {
         this.iterate();
         this.depth = 0;
         this.shouldAnimate = true;
@@ -25,11 +24,30 @@ class MyLightning extends MyLSystem {
 
     update(t) {
         if(this.shouldAnimate) {
-            // se chegou ao fim, mete shouldAnimate a false?
+            console.log("Animating ...");
+            if (this.animationStartTime == 0) {
+                this.animationStartTime = t;
+            }
+            // se chegou ao fim, shouldAnimate fica false
+            if (t - this.animationStartTime > 1000) {
+                this.animationStartTime = 0;
+                this.depth = 0;
+                this.shouldAnimate = false;
+                this.axiom = this.scene.lightningAxiom;
+                console.log("Done!");
+            }
+            // se nao, continua a mostrar
+            else {
+                this.depth = this.axiom.length * ((t - this.animationStartTime) / 1000);
+                this.display();
+            }
         }
     }
 
     display() {
+
+        this.scene.diffuseMaterial.apply();
+
         this.scene.pushMatrix();
         this.scene.scale(this.scale, this.scale, this.scale);
 
