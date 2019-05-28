@@ -40,7 +40,7 @@ class MyScene extends CGFscene {
 
         this.bird = new MyBird(this, 1, 0, 10, 0);
 
-        this.nest = new MyNest(this, -8, -8, 3);
+        this.nest = new MyNest(this, -8, -8, 3, 8);
 
         this.numBranches = 5;
 
@@ -72,23 +72,23 @@ class MyScene extends CGFscene {
         this.lightningScaleFactor = 0.5;
 
 
-        this.lightning = new MyLightning(this);
+        // this.lightning = new MyLightning(this);
 
-        this.generateLightning = function () {
-            this.lightning.generate(
-                this.axiom,
-                {
-                    "F": ["FF"],
-                    "X": ["F[-X][X]F[-X]+FX"]
-                },
-                this.lightningAngle,
-                this.lightningIterations,
-                this.lightningScaleFactor
-            );
-        }
+        // this.generateLightning = function () {
+        //     this.lightning.generate(
+        //         this.axiom,
+        //         {
+        //             "F": ["FF"],
+        //             "X": ["F[-X][X]F[-X]+FX"]
+        //         },
+        //         this.lightningAngle,
+        //         this.lightningIterations,
+        //         this.lightningScaleFactor
+        //     );
+        // }
 
 
-        this.generateLightning(); // initial L system generation
+        // this.generateLightning(); // initial L system generation
 
 
         
@@ -244,7 +244,7 @@ class MyScene extends CGFscene {
         this.popMatrix();
 
         this.pushMatrix();
-        this.translate(0, 3.7, 0);
+        this.translate(0, 3.9, 0);
         this.nest.display();
         this.popMatrix();
 

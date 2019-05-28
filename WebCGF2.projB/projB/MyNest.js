@@ -1,14 +1,17 @@
 class MyNest extends CGFobject {
-    constructor(scene, x, z, diameter) {
+    constructor(scene, x, z, size, slices) {
         super(scene);
 
         this.initTextures();
 
         this.x = x;
         this.z = z;
-        this.diameter = diameter;
+        this.size = size;
+        this.slices = slices;
+        this.rotAngle = 2 * Math.PI / this.slices;
 
-        this.nest = new MyCylinder(this.scene, 10);
+        this.nest = new MyCylinder(this.scene, 8);
+        this.base = new MyCircle(this.scene, this.slices);
 
         this.branches = [];
     }
@@ -18,10 +21,10 @@ class MyNest extends CGFobject {
     }
 
     collidedWithBird(bird) {
-        var xLowerLimit = this.x - this.diameter + 0.3;
-        var xUpperLimit = this.x + this.diameter - 0.3;
-        var zLowerLimit = this.z - this.diameter + 0.3;
-        var zUpperLimit = this.z + this.diameter - 0.3;
+        var xLowerLimit = this.x - this.size + 0.3;
+        var xUpperLimit = this.x + this.size - 0.3;
+        var zLowerLimit = this.z - this.size + 0.3;
+        var zUpperLimit = this.z + this.size - 0.3;
 
         if((xLowerLimit < bird.xPosition) && (xUpperLimit > bird.xPosition) &&
            (zLowerLimit < bird.zPosition) && (zUpperLimit > bird.zPosition))
@@ -42,8 +45,27 @@ class MyNest extends CGFobject {
         // Nest
 
         this.scene.pushMatrix();
-        this.scene.scale(this.diameter, 1, this.diameter);
-        this.nest.display();
+        this.scene.scale(this.size, this.size, this.size);
+
+        this.scene.pushMatrix();
+        this.base.display();
+        this.scene.popMatrix();
+        
+        // this.nest.display();
+
+        for (var i = 1; i <= this.slices; i++) {
+            var ang = i * this.rotAngle;
+            this.scene.pushMatrix();
+            this.scene.translate(Math.sin(ang), 0, Math.cos(ang));
+            this.scene.rotate(ang, 0, 1, 0);
+            this.scene.rotate(Math.PI / 2, 0, 0, 1);
+            this.scene.scale(0.25, 8 / this.slices, 0.25);
+            this.scene.translate(0, -0.5, 0);
+            this.nest.display();
+            this.scene.popMatrix();
+        }
+        
+        
         this.scene.popMatrix();
 
 
