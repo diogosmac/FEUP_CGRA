@@ -65,6 +65,33 @@ class MyScene extends CGFscene {
         }
 
 
+        // variables for the L system
+        this.lightningAxiom = "X";
+        this.lightningAngle = 25.0;
+        this.lightningIterations = 3;
+        this.lightningScaleFactor = 0.5;
+
+
+        this.lightning = new MyLightning(this);
+
+        this.generateLightning = function () {
+            this.lightning.generate(
+                this.axiom,
+                {
+                    "F": ["FF"],
+                    "X": ["F[-X][X]F[-X]+FX"]
+                },
+                this.lightningAngle,
+                this.lightningIterations,
+                this.lightningScaleFactor
+            );
+        }
+
+
+        this.generateLightning(); // initial L system generation
+
+
+        
         this.timeOfDay = 0;
 
         // Objects connected to MyInterface

@@ -3,7 +3,9 @@ class MyLightning extends MyLSystem {
     constructor(scene) {
         super(scene);
 
+        this.animationStartTime = 0;
         this.depth = 0;
+        this.shouldAnimate = false; // indicates if an animation is current taking place or not
     }
 
     initGrammar() {
@@ -16,12 +18,15 @@ class MyLightning extends MyLSystem {
     startAnimation(t) {
         this.animationStartTime = t;
         this.iterate();
-        this.depth = 1;
+        this.depth = 0;
+        this.shouldAnimate = true;
     }
 
 
     update(t) {
-
+        if(this.shouldAnimate) {
+            // se chegou ao fim, mete shouldAnimate a false?
+        }
     }
 
     display() {
