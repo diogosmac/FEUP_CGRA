@@ -64,9 +64,7 @@ class MyNest extends CGFobject {
             this.scene.popMatrix();
         }
         
-        
         this.scene.popMatrix();
-
 
         // Branches that it might have
 
