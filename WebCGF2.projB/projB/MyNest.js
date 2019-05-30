@@ -50,8 +50,6 @@ class MyNest extends CGFobject {
         this.scene.pushMatrix();
         this.base.display();
         this.scene.popMatrix();
-        
-        // this.nest.display();
 
         for (var i = 1; i <= this.slices; i++) {
             var ang = i * this.rotAngle;

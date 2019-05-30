@@ -238,25 +238,25 @@ class MyScene extends CGFscene {
 
         // ---- BEGIN Primitive drawing section
 
-        // this.terrain.display();
+        this.terrain.display();
 
         this.pushMatrix();
-        // this.bird.display();
+        this.bird.display();
         this.popMatrix();
 
         this.pushMatrix();
         this.translate(-7, 3.8, 8);
         this.rotate(Math.PI, 0, 1, 0);
-        // this.house.display();
+        this.house.display();
         this.popMatrix();
 
         this.pushMatrix();
         this.translate(0, 3.9, 0);
-        // this.nest.display();
+        this.nest.display();
         this.popMatrix();
 
         for(var i = 0; i < this.branches.length; i++)
-            // this.branches[i].display();
+            this.branches[i].display();
 
 
         this.cubeMap.cubeMapMaterial.apply();
