@@ -133,11 +133,12 @@ class MyBird extends CGFobject {
     }
 
     updateHeightOsc(t) {
-        this.heightOffset = this.heightAmp * Math.sin(2 * Math.PI * t / 1000);
+        this.heightOffset = this.heightAmp * Math.sin(2 * Math.PI * t / 1000 + Math.PI);
     }
 
     updateWingsPosition(t) {
-        var freq = this.scene.speedFactor * (this.velocity + 1) / 2;
+        var freq = this.scene.speedFactor * (this.velocity + 1);
+        
         this.innerWingAnimAngle = this.innerWingAnimAmp * Math.sin(2 * Math.PI * freq * (t / 1000));
         this.outerWingAnimAngle = (-this.outerWingAnimAmp * Math.sin(2 * Math.PI * freq * (t / 1000))) + (this.outerWingAnimAmp * 0.75);
     }

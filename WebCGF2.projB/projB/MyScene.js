@@ -215,11 +215,11 @@ class MyScene extends CGFscene {
         }
 
         if(this.gui.isKeyPressed("KeyA")) {
-            this.bird.turn(this.speedFactor / 10);
+            this.bird.turn(this.speedFactor / 5);
         }
 
         if(this.gui.isKeyPressed("KeyD")) {
-            this.bird.turn(-this.speedFactor / 10);
+            this.bird.turn(-this.speedFactor / 5);
         }
 
         if(this.gui.isKeyPressed("KeyR")) {
