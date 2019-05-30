@@ -48,6 +48,7 @@ class MyNest extends CGFobject {
         this.scene.scale(this.size, this.size, this.size);
 
         this.scene.pushMatrix();
+        this.scene.rotate(Math.PI / 2, 0, 1, 0);
         this.base.display();
         this.scene.popMatrix();
 
@@ -57,7 +58,7 @@ class MyNest extends CGFobject {
             this.scene.translate(Math.sin(ang), 0, Math.cos(ang));
             this.scene.rotate(ang, 0, 1, 0);
             this.scene.rotate(Math.PI / 2, 0, 0, 1);
-            this.scene.scale(0.25, 8 / this.slices, 0.25);
+            this.scene.scale(0.25, 9 / this.slices, 0.25);
             this.scene.translate(0, -0.5, 0);
             this.nest.display();
             this.scene.popMatrix();
