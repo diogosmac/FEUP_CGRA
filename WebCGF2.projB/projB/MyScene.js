@@ -92,11 +92,46 @@ class MyScene extends CGFscene {
             );
         }
 
-
         this.generateLightning(); // initial L system generation
 
-
+        this.treeAxiom = "X";
+        this.treeAngle = 30.0;
+        this.treeIterations = 4;
+        this.treeScaleFactor = 0.5;
         
+        this.trees = [];
+
+        for(var i = 0; i < 5; i++)
+            this.trees.push(new MyLSPlant(this));
+
+        this.generateTrees = function () {
+            
+            for(var i = 0; i < 5; i++) {
+                this.trees[i].generate(
+                    this.treeAxiom,
+                    {
+                        "F": ["FF"],
+                        "X": [
+                            "F[-X][X]F[-X]+X",
+                            "F[-X][X]+X",
+                            "F[+X]-X",
+                            "F[/X][X]F[\\X]+X",
+                            "F[\\X][X]/X",
+                            "F[/X]\\X",
+                            "F[^X][X]F[&X]^X",
+                            "F[^X]&X",
+                            "F[&X]^X"
+                        ]
+                    },
+                    this.treeAngle,
+                    this.treeIterations,
+                    this.treeScaleFactor
+                );
+            }
+        }
+
+        this.generateTrees();
+
         this.timeOfDay = 0;
 
         // Objects connected to MyInterface
@@ -266,6 +301,37 @@ class MyScene extends CGFscene {
 
         this.cubeMap.cubeMapMaterial.apply();
         this.cubeMap.display();
+
+        this.pushMatrix();
+        this.translate(13, 3.8, 9);
+        this.scale(2, 2, 2);
+        this.trees[0].display();
+        this.popMatrix();
+
+        this.pushMatrix();
+        this.translate(-12, 3.8, 1);
+        this.scale(2, 2, 2);
+        this.trees[1].display();
+        this.popMatrix();
+
+        this.pushMatrix();
+        this.translate(10, 3.8, -11);
+        this.scale(2, 2, 2);
+        this.trees[2].display();
+        this.popMatrix();
+
+        this.pushMatrix();
+        this.translate(-13, 3.8, 10);
+        this.scale(2, 2, 2);
+        this.trees[3].display();
+        this.popMatrix();
+
+        this.pushMatrix();
+        this.translate(-1, 3.8, -12);
+        this.scale(2, 2, 2);
+        this.trees[3].display();
+        this.popMatrix();
+
 
         this.pushMatrix();
         this.lightning.display();
