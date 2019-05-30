@@ -38,7 +38,7 @@ class MyScene extends CGFscene {
                                  this.welcomeMatTexture,
                                  this.windowTexture);
 
-        this.bird = new MyBird(this, 1, 0, 10, 0);
+        this.bird = new MyBird(this, 0.8, 0, 10, 0);
 
         this.nest = new MyNest(this, -8, -8, 3, 8);
 
@@ -101,12 +101,12 @@ class MyScene extends CGFscene {
         
         this.trees = [];
 
-        for(var i = 0; i < 5; i++)
+        for(var i = 0; i < 6; i++)
             this.trees.push(new MyLSPlant(this));
 
         this.generateTrees = function () {
             
-            for(var i = 0; i < 5; i++) {
+            for(var i = 0; i < 6; i++) {
                 this.trees[i].generate(
                     this.treeAxiom,
                     {
@@ -286,6 +286,7 @@ class MyScene extends CGFscene {
 
         this.pushMatrix();
         this.translate(-7, 3.8, 8);
+        this.scale(1.9, 1.9, 1.9);
         this.rotate(Math.PI, 0, 1, 0);
         this.house.display();
         this.popMatrix();
@@ -302,34 +303,35 @@ class MyScene extends CGFscene {
         this.cubeMap.cubeMapMaterial.apply();
         this.cubeMap.display();
 
+        
         this.pushMatrix();
         this.translate(13, 3.8, 9);
-        this.scale(2, 2, 2);
         this.trees[0].display();
         this.popMatrix();
 
         this.pushMatrix();
         this.translate(-12, 3.8, 1);
-        this.scale(2, 2, 2);
         this.trees[1].display();
         this.popMatrix();
 
         this.pushMatrix();
         this.translate(10, 3.8, -11);
-        this.scale(2, 2, 2);
         this.trees[2].display();
         this.popMatrix();
 
         this.pushMatrix();
         this.translate(-13, 3.8, 10);
-        this.scale(2, 2, 2);
         this.trees[3].display();
         this.popMatrix();
 
         this.pushMatrix();
         this.translate(-1, 3.8, -12);
-        this.scale(2, 2, 2);
-        this.trees[3].display();
+        this.trees[4].display();
+        this.popMatrix();
+
+        this.pushMatrix();
+        this.translate(16, 3.8, -2);
+        this.trees[5].display();
         this.popMatrix();
 
 

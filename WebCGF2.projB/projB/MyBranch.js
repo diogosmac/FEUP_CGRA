@@ -3,7 +3,10 @@ class MyBranch extends CGFobject {
     constructor(scene) {
         super(scene);
 
-        this.cilinder = new MyCylinder(scene, 4);
+        this.length = 4;
+        this.width = 1.5;
+
+        this.cilinder = new MyCylinder(scene, 8);
         this.init();
     }
 
@@ -20,6 +23,10 @@ class MyBranch extends CGFobject {
     display() {
         this.material.setTexture(this.texture);
         this.material.apply();
+
+        this.scene.pushMatrix();
+        this.scene.scale(this.width, this.length, this.width);
         this.cilinder.display();
+        this.scene.popMatrix();
     }
 }

@@ -132,7 +132,7 @@ class MyLSystem extends CGFobject {
                     if ( primitive )
                     {
                         primitive.display();
-                        this.scene.translate(0, 1, 0);
+                        this.scene.translate(0, primitive.length, 0);
                     }
                     break;
             }

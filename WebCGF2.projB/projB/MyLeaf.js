@@ -3,6 +3,8 @@ class MyLeaf extends CGFobject {
     constructor(scene) {
         super(scene);
 
+        this.length = 3;
+
         this.triangle = new MyTriangle(scene);
         this.init();
     }
@@ -22,7 +24,7 @@ class MyLeaf extends CGFobject {
         this.material.apply();
 
         this.scene.pushMatrix();
-        this.scene.scale(3, 3, 3);
+        this.scene.scale(this.length, this.length, this.length);
         this.triangle.display();
         this.scene.popMatrix();
     }

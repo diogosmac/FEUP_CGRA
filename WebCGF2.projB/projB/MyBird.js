@@ -36,7 +36,7 @@ class MyBird extends CGFobject {
         this.fallVelocity = this.initialY - 4.5;
 
         this.innerWingAnimAngle = 0;
-        this.innerWingAnimAmp = 0.6;
+        this.innerWingAnimAmp = 0.8;
 
         this.outerWingAnimAngle = 20;
         this.outerWingAnimAmp = 0.5;
@@ -137,9 +137,9 @@ class MyBird extends CGFobject {
     }
 
     updateWingsPosition(t) {
-        var freq = this.scene.speedFactor * (this.velocity + 1) / 4;
+        var freq = this.scene.speedFactor * (this.velocity + 1) / 2;
         this.innerWingAnimAngle = this.innerWingAnimAmp * Math.sin(2 * Math.PI * freq * (t / 1000));
-        this.outerWingAnimAngle = -this.outerWingAnimAmp * Math.sin(2 * Math.PI * freq * (t / 1000));
+        this.outerWingAnimAngle = (-this.outerWingAnimAmp * Math.sin(2 * Math.PI * freq * (t / 1000))) + (this.outerWingAnimAmp * 0.75);
     }
     
     updatePosition(t) {
