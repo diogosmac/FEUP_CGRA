@@ -8,7 +8,7 @@ class MyCircle extends CGFobject {
     }
 
     initBuffers() {
-    
+
         this.vertices = [];
         this.indices = [];
         this.normals = [];
@@ -19,7 +19,7 @@ class MyCircle extends CGFobject {
 
         var faceWidth = 1 / this.slices;
 
-        for(var i = 0; i <= this.slices; i++, ang += deltaAng) {
+        for(var i = 0; i < this.slices; i++, ang += deltaAng) {
 
             var cos = Math.cos(ang);
             var sin = Math.sin(ang);
@@ -31,9 +31,9 @@ class MyCircle extends CGFobject {
 
         }
 
-        for (var i = 0; i <= this.slices; i++) {
+        for (var i = 0; i < this.slices; i++) {
 
-            this.indices.push(this.slices + i, (i+1) % this.slices, i);
+            this.indices.push(this.slices, (i+1) % this.slices, i);
 
             var currentCoord = [
                 1 - (i * faceWidth), 1,
@@ -45,6 +45,7 @@ class MyCircle extends CGFobject {
         }
 
         this.vertices.push(0, 0, 0);
+        this.normals.push(0, 1, 0);
 
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
