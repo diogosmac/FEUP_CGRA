@@ -12,11 +12,13 @@ class MyNest extends CGFobject {
 
         this.nest = new MyCylinder(this.scene, 8);
         this.base = new MyCircle(this.scene, this.slices);
+        this.eeg = new MySphere(this.scene, 15, 15, 0.75);
 
         this.branches = [];
     }
 
     initTextures() {
+        this.eegTexture = new CGFtexture(this.scene, 'images/egg.jpg');
         this.nestTexture = new CGFtexture(this.scene, 'images/nestTexture.jpg');
     }
 
@@ -35,14 +37,32 @@ class MyNest extends CGFobject {
 
     display() {
 
-        this.scene.diffuseMaterial.setTexture(this.nestTexture);
+        this.scene.pushMatrix();
+        this.scene.translate(this.x, 0, this.z);
+
+        // Eggs
+
+        this.scene.diffuseMaterial.setTexture(this.eegTexture);
         this.scene.diffuseMaterial.apply();
 
         this.scene.pushMatrix();
-        this.scene.translate(this.x, 0, this.z);
-        
+        this.scene.translate(-1.9, 0.25, -0.7)
+        this.scene.rotate(-Math.PI / 4, 0, 1, 1);
+        this.scene.scale(0.9, 0.65, 0.65);
+        this.eeg.display();
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+        this.scene.translate(-1.5, 0.25, -1.6);
+        this.scene.rotate(-Math.PI / 4, 0, 1.5, 1);
+        this.scene.scale(0.9, 0.65, 0.65);
+        this.eeg.display();
+        this.scene.popMatrix();
 
         // Nest
+
+        this.scene.diffuseMaterial.setTexture(this.nestTexture);
+        this.scene.diffuseMaterial.apply();
 
         this.scene.pushMatrix();
         this.scene.scale(this.size, this.size, this.size);

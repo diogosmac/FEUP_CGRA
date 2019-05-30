@@ -16,6 +16,8 @@ class MyLightning extends MyLSystem {
         this.lightningMaterial.setSpecular(1.0, 1.0, 1.0, 1);
         this.lightningMaterial.setShininess(10.0);
 
+        this.scene.lights[1].setDiffuse(0.4, 0.4, 0.9, 1.0);
+
     }
 
     initGrammar() {
@@ -26,14 +28,29 @@ class MyLightning extends MyLSystem {
     }
 
     startAnimation() {
+
         this.axiom = this.scene.lightningAxiom;
         this.iterate();
         this.depth = 0;
         this.shouldAnimate = true;
+
         this.x = Math.random() * 30 - 15;
         this.z = Math.random() * 30 - 15;
+
+        this.scene.lights[1].setPosition(this.x, 25, this.z, 1);
+        this.scene.lights[1].enable();
+        this.scene.lights[1].update();
+
     }
 
+    endAnimation() {
+        this.scene.lights[1].disable();
+        this.scene.lights[1].update();
+        this.animationStartTime = 0;
+        this.depth = 0;
+        this.shouldAnimate = false;
+        console.log("Done!");
+    }
 
     update(t) {
         if(this.shouldAnimate) {
@@ -43,10 +60,7 @@ class MyLightning extends MyLSystem {
             }
             // se chegou ao fim, shouldAnimate fica false
             if (t - this.animationStartTime > 1000) {
-                this.animationStartTime = 0;
-                this.depth = 0;
-                this.shouldAnimate = false;
-                console.log("Done!");
+                this.endAnimation();
             }
             // se nao, continua a mostrar
             else {
@@ -61,7 +75,7 @@ class MyLightning extends MyLSystem {
 
         this.scene.pushMatrix();
 
-        this.scene.translate(this.x, 20, this.z);
+        this.scene.translate(this.x, 25, this.z);
         this.scene.scale(this.scale, this.scale, this.scale);
         this.scene.rotate(Math.PI, 1, 0, 0);
 
