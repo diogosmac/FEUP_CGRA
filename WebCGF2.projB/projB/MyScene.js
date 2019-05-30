@@ -71,8 +71,7 @@ class MyScene extends CGFscene {
         this.lightningIterations = 3;
         this.lightningScaleFactor = 0.5;
 
-
-        this.lightning = new MyLightning(this);
+        this.lightning = new MyLightning(this, 4);
 
         this.generateLightning = function () {
             this.lightning.generate(
@@ -261,6 +260,11 @@ class MyScene extends CGFscene {
 
         this.cubeMap.cubeMapMaterial.apply();
         this.cubeMap.display();
+
+        this.pushMatrix();
+        this.lightning.display();
+        this.popMatrix();
+
         // ---- END Primitive drawing section
 
     }

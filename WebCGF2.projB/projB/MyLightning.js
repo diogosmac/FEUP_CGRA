@@ -1,11 +1,19 @@
 
 class MyLightning extends MyLSystem {
-    constructor(scene) {
+    constructor(scene, scale) {
         super(scene);
 
         this.animationStartTime = 0;
         this.depth = 0;
         this.shouldAnimate = false; // indicates if an animation is current taking place or not
+        this.lightningScale = scale;
+        
+        this.lightningMaterial = new CGFappearance(scene);
+        this.lightningMaterial.setAmbient(1.0, 1.0, 1.0, 1);
+        this.lightningMaterial.setDiffuse(1.0, 1.0, 1.0, 1);
+        this.lightningMaterial.setSpecular(1.0, 1.0, 1.0, 1);
+        this.lightningMaterial.setShininess(10.0);
+
     }
 
     initGrammar() {
@@ -39,17 +47,16 @@ class MyLightning extends MyLSystem {
             // se nao, continua a mostrar
             else {
                 this.depth = this.axiom.length * ((t - this.animationStartTime) / 1000);
-                this.display();
             }
         }
     }
 
     display() {
 
-        this.scene.diffuseMaterial.apply();
+        this.lightningMaterial.apply();
 
         this.scene.pushMatrix();
-        this.scene.scale(this.scale, this.scale, this.scale);
+        this.scene.scale(this.scale / 2, this.scale * this.lightningScale, this.scale);
 
         var i;
 
