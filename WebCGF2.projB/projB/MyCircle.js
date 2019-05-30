@@ -27,8 +27,11 @@ class MyCircle extends CGFobject {
             this.vertices.push(cos, 0, sin);
 
             //add normals for the newly created vertices
-            var normal = [cos, 0, sin];
             this.normals.push(0, 1, 0);
+
+        }
+
+        for (var i = 0; i <= this.slices; i++, ang += deltaAng) {
 
             this.indices.push(this.slices + i, (i+1) % this.slices, i);
 
@@ -38,6 +41,7 @@ class MyCircle extends CGFobject {
             ];
 
             this.texCoords.push(...currentCoord);
+
         }
 
         this.vertices.push(0, 0, 0);
