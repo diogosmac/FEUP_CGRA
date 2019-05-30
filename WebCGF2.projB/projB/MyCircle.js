@@ -31,7 +31,7 @@ class MyCircle extends CGFobject {
 
         }
 
-        for (var i = 0; i <= this.slices; i++, ang += deltaAng) {
+        for (var i = 0; i <= this.slices; i++) {
 
             this.indices.push(this.slices + i, (i+1) % this.slices, i);
 
