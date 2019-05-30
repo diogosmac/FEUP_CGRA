@@ -55,7 +55,7 @@ class MyScene extends CGFscene {
                 randomZ = Math.floor(Math.random() * 22) - 10; // de -10 a 11
             }
             else {
-                randomX = Math.floor(Math.random() * 11) - 1; // de -1 a 9
+                randomX = Math.floor(Math.random() * 7) + 3; // de 3 a 10
                 randomZ = Math.floor(Math.random() * 7) + 5; // de 5 a 11
             }
 
