@@ -7,6 +7,8 @@ class MyLightning extends MyLSystem {
         this.depth = 0;
         this.shouldAnimate = false; // indicates if an animation is current taking place or not
         this.lightningScale = scale;
+        this.x = 0;
+        this.z = 0;
         
         this.lightningMaterial = new CGFappearance(scene);
         this.lightningMaterial.setAmbient(1.0, 1.0, 1.0, 1);
@@ -24,9 +26,12 @@ class MyLightning extends MyLSystem {
     }
 
     startAnimation() {
+        this.axiom = this.scene.lightningAxiom;
         this.iterate();
         this.depth = 0;
         this.shouldAnimate = true;
+        this.x = Math.random() * 30 - 15;
+        this.z = Math.random() * 30 - 15;
     }
 
 
@@ -41,7 +46,6 @@ class MyLightning extends MyLSystem {
                 this.animationStartTime = 0;
                 this.depth = 0;
                 this.shouldAnimate = false;
-                this.axiom = this.scene.lightningAxiom;
                 console.log("Done!");
             }
             // se nao, continua a mostrar
@@ -56,7 +60,10 @@ class MyLightning extends MyLSystem {
         this.lightningMaterial.apply();
 
         this.scene.pushMatrix();
-        this.scene.scale(this.scale / 2, this.scale * this.lightningScale, this.scale);
+
+        this.scene.translate(this.x, 20, this.z);
+        this.scene.scale(this.scale, this.scale, this.scale);
+        this.scene.rotate(Math.PI, 1, 0, 0);
 
         var i;
 
@@ -112,8 +119,15 @@ class MyLightning extends MyLSystem {
 
                     if ( primitive )
                     {
+                        this.scene.pushMatrix();
+                        this.scene.scale(0.5, this.lightningScale, 1);
+                        this.scene.translate(0.5, 0.5, 0);
                         primitive.display();
-                        this.scene.translate(0, 1, 0);
+                        // Para que os relâmpagos sejam visíveis dos dois lados
+                        this.scene.rotate(Math.PI, 0, 1, 0);
+                        primitive.display();
+                        this.scene.popMatrix();
+                        this.scene.translate(0, this.lightningScale, 0);
                     }
                     break;
             }
