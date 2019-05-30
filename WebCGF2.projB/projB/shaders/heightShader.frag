@@ -13,11 +13,5 @@ void main() {
 	vec4 color = texture2D(uSampler, vTextureCoord);
 	vec4 altColor = texture2D(uSamplerAltimetry, vec2(0.0, 1.0 - verticalOffset.z));
 
-	gl_FragColor = (color * 3.0 + altColor) / 4.0;
-
-    if(verticalOffset.z < 0.01) {
-        float colorModifier = 1.10 + verticalOffset.z;
-        gl_FragColor.rgb /= colorModifier;
-    }
-
+	gl_FragColor = (color * 3.0 + altColor * 2.0) / 5.0;
 }

@@ -198,14 +198,14 @@ class MyScene extends CGFscene {
             this.lastTime = t;
         }
         else {
-            this.checkKeys();
+            this.checkKeys(t);
             this.bird.update(t);
             this.lastTime = t;
         }
         this.lightning.update(t);
     }
 
-    checkKeys() {
+    checkKeys(t) {
         if (this.gui.isKeyPressed("KeyW")) {
             this.bird.accelerate(this.speedFactor);
         }
@@ -233,7 +233,7 @@ class MyScene extends CGFscene {
 
         if(this.gui.isKeyPressed("KeyL")) {
             if (this.lightning.shouldAnimate == false) { 
-                this.lightning.startAnimation();
+                this.lightning.startAnimation(t);
             }
         }
     }
