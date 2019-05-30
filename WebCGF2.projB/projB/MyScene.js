@@ -78,7 +78,13 @@ class MyScene extends CGFscene {
                 this.lightningAxiom,
                 {
                     "F": ["FF"],
-                    "X": ["F[-X][X]F[-X]+FX"]
+                    "X": [
+                        "F[-X][X]F[-X]+FX", 
+                        "F[/X][X]F[\\X]+X",
+                        "F[X]XF+[\\X]",
+                        "F[X[X]+F]",
+                        "F[^X][X]F[&X]^X",
+                    ]
                 },
                 this.lightningAngle,
                 this.lightningIterations,
