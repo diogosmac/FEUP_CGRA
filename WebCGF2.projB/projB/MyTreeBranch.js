@@ -38,7 +38,7 @@ class MyTreeBranch extends CGFobject {
     collidedWithBird(bird) {
         var totalDistance = Math.sqrt(Math.pow(this.x - bird.xPosition, 2) + Math.pow(this.z - bird.zPosition, 2));
 
-        if(totalDistance < this.width * (5/6))
+        if(totalDistance < this.width * (5/6) * bird.scaleFactor)
             return true;
 
         return false;
