@@ -97,7 +97,7 @@ class MyScene extends CGFscene {
         this.treeAxiom = "X";
         this.treeAngle = 35.0;
         this.treeIterations = 5;
-        this.treeScaleFactor = 0.60;
+        this.treeScaleFactor = 0.55;
         
         this.trees = [];
 
