@@ -38,7 +38,7 @@ class MyLightning extends MyLSystem {
         this.x = Math.random() * 30 - 15;
         this.z = Math.random() * 30 - 15;
 
-        this.scene.lights[1].setPosition(this.x, 25, this.z, 1);
+        this.scene.lights[1].setPosition(this.x, 20, this.z, 1);
         this.scene.lights[1].enable();
         this.scene.lights[1].update();
 
