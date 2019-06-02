@@ -101,12 +101,12 @@ class MyScene extends CGFscene {
         
         this.trees = [];
 
-        for(var i = 0; i < 8; i++)
+        for(var i = 0; i < 11; i++)
             this.trees.push(new MyLSPlant(this));
 
         this.generateTrees = function () {
             
-            for(var i = 0; i < 8; i++) {
+            for(var i = 0; i < 11; i++) {
                 this.trees[i].generate(
                     this.treeAxiom,
                     {
@@ -341,6 +341,21 @@ class MyScene extends CGFscene {
         this.pushMatrix();
         this.translate(-6, 3.8, 12);
         this.trees[7].display();
+        this.popMatrix();
+
+        this.pushMatrix();
+        this.translate(-11, 3.8, -5);
+        this.trees[8].display();
+        this.popMatrix();
+
+        this.pushMatrix();
+        this.translate(4.5, 3.8, -13);
+        this.trees[9].display();
+        this.popMatrix();
+
+        this.pushMatrix();
+        this.translate(8, 3.8, 13);
+        this.trees[10].display();
         this.popMatrix();
 
         this.pushMatrix();
