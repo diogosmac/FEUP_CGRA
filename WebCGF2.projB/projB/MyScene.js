@@ -40,7 +40,7 @@ class MyScene extends CGFscene {
 
         this.bird = new MyBird(this, 0.52, 0, 4.5, 0);
 
-        this.nest = new MyNest(this, -8, -8, 2, 8);
+        this.nest = new MyNest(this, -8, -8, 1, 8);
 
         this.numBranches = 5;
 

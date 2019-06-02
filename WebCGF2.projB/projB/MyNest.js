@@ -20,8 +20,8 @@ class MyNest extends CGFobject {
     initTexturesAndMaterials() {
 
         this.nestMaterial = new CGFappearance(this.scene);
-        this.nestMaterial.setAmbient(0.9, 0.9, 0.9, 1);
-        this.nestMaterial.setDiffuse(0.6, 0.6, 0.6, 1);
+        this.nestMaterial.setAmbient(0.86, 0.81, 0.27, 1);
+        this.nestMaterial.setDiffuse(0.43, 0.41, 0.14, 1);
         this.nestMaterial.setSpecular(0, 0, 0, 1);
         this.nestMaterial.setShininess(1.0);
 
@@ -84,7 +84,7 @@ class MyNest extends CGFobject {
             this.scene.translate(Math.sin(ang), 0, Math.cos(ang));
             this.scene.rotate(ang, 0, 1, 0);
             this.scene.rotate(Math.PI / 2, 0, 0, 1);
-            this.scene.scale(0.25, 9 / this.slices, 0.25);
+            this.scene.scale(this.size / 4, 8 / this.slices, this.size / 4);
             this.scene.translate(0, -0.5, 0);
             this.nest.display();
             this.scene.popMatrix();
