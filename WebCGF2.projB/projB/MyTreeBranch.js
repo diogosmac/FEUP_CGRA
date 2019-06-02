@@ -5,10 +5,10 @@ class MyTreeBranch extends CGFobject {
         this.z = z;
         this.orientation = orientation;
 
-        this.width = 3.5;
-        this.radius = 0.1;
+        this.width = 2;
+        this.radius = 0.05;
 
-        this.initTextures();
+        this.initTexturesAndMaterials();
 
         // if the bird is not holding the branch, the branch can be in its original position, with orientation;
         // if the bird is holding the branch, the branch should not be in its original position;
@@ -24,14 +24,21 @@ class MyTreeBranch extends CGFobject {
         this.branch = new MyCylinder(this.scene, 10);
     }
 
-    initTextures() {
+    initTexturesAndMaterials() {
+
+        this.branchMaterial = new CGFappearance(this.scene);
+        this.branchMaterial.setAmbient(0.68, 0.40, 0.20, 1);
+        this.branchMaterial.setDiffuse(0.34, 0.20, 0.10, 1);
+        this.branchMaterial.setSpecular(0, 0, 0, 1);
+        this.branchMaterial.setShininess(10.0);
+
         this.branchTexture = new CGFtexture(this.scene, 'images/trunkTexture.png');
     }
 
     collidedWithBird(bird) {
         var totalDistance = Math.sqrt(Math.pow(this.x - bird.xPosition, 2) + Math.pow(this.z - bird.zPosition, 2));
 
-        if(totalDistance < 1.5)
+        if(totalDistance < this.width / 2)
             return true;
 
         return false;
@@ -39,20 +46,20 @@ class MyTreeBranch extends CGFobject {
 
 
     display() {
-        this.scene.diffuseMaterial.setTexture(this.branchTexture);
-        this.scene.diffuseMaterial.apply();
+        this.branchMaterial.setTexture(this.branchTexture);
+        this.branchMaterial.apply();
 
         this.scene.pushMatrix();
 
         if(this.currentState == this.states.NORMAL) {
-            this.scene.translate(this.x, 3.7, this.z);
+            this.scene.translate(this.x, 3.8, this.z);
             this.scene.rotate(this.orientation, 0, 1, 0);
         }
         else if (this.currentState == this.states.IN_NEST) {
             this.scene.rotate(this.orientation, 0, 1, 0);
         }
 
-        this.scene.translate(1.75, 0.15, 0);
+        this.scene.translate(this.width / 2, this.radius / 2, 0);
         this.scene.rotate(Math.PI / 2, 0, 0, 1);
         this.scene.scale(this.radius, this.width, this.radius);
         this.branch.display();

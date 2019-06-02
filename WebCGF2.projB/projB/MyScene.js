@@ -28,7 +28,7 @@ class MyScene extends CGFscene {
         this.axis = new CGFaxis(this);
         this.terrain = new MyTerrain(this, 60, 60);
         this.cubeMap = new MyCubeMap(this);
-        this.house = new MyHouse(this, 0.75,
+        this.house = new MyHouse(this, 3/5,
                                  this.brickTexture,
                                  this.doorTexture,
                                  this.balconyTexture,
@@ -38,9 +38,9 @@ class MyScene extends CGFscene {
                                  this.welcomeMatTexture,
                                  this.windowTexture);
 
-        this.bird = new MyBird(this, 0.8, 0, 10, 0);
+        this.bird = new MyBird(this, 0.52, 0, 4.5, 0);
 
-        this.nest = new MyNest(this, -8, -8, 3, 8);
+        this.nest = new MyNest(this, -8, -8, 2, 8);
 
         this.numBranches = 5;
 
@@ -71,7 +71,7 @@ class MyScene extends CGFscene {
         this.lightningIterations = 3;
         this.lightningScaleFactor = 0.5;
 
-        this.lightning = new MyLightning(this, 4);
+        this.lightning = new MyLightning(this, 2.5);
 
         this.generateLightning = function () {
             this.lightning.generate(
@@ -97,16 +97,16 @@ class MyScene extends CGFscene {
         this.treeAxiom = "X";
         this.treeAngle = 30.0;
         this.treeIterations = 4;
-        this.treeScaleFactor = 0.5;
+        this.treeScaleFactor = 0.45;
         
         this.trees = [];
 
-        for(var i = 0; i < 6; i++)
+        for(var i = 0; i < 8; i++)
             this.trees.push(new MyLSPlant(this));
 
         this.generateTrees = function () {
             
-            for(var i = 0; i < 6; i++) {
+            for(var i = 0; i < 8; i++) {
                 this.trees[i].generate(
                     this.treeAxiom,
                     {
@@ -285,8 +285,7 @@ class MyScene extends CGFscene {
         this.popMatrix();
 
         this.pushMatrix();
-        this.translate(-7, 3.8, 8);
-        this.scale(1.9, 1.9, 1.9);
+        this.translate(-4, 3.8, 6.9);
         this.rotate(Math.PI, 0, 1, 0);
         this.house.display();
         this.popMatrix();
@@ -334,6 +333,15 @@ class MyScene extends CGFscene {
         this.trees[5].display();
         this.popMatrix();
 
+        this.pushMatrix();
+        this.translate(-11, 3.8, -11);
+        this.trees[6].display();
+        this.popMatrix();
+
+        this.pushMatrix();
+        this.translate(-6, 3.8, 12);
+        this.trees[7].display();
+        this.popMatrix();
 
         this.pushMatrix();
         this.lightning.display();

@@ -1,6 +1,6 @@
 class MyBird extends CGFobject {
 
-    constructor(scene, birdSize, initialX, initialY, initialZ) {
+    constructor(scene, birdSize, initialX, groundHeight, initialZ) {
         super(scene);
 
         this.initMaterials();
@@ -23,17 +23,20 @@ class MyBird extends CGFobject {
 
         this.birdSize = birdSize;              
 
+        this.groundHeight = groundHeight;
+
         this.orientation = 0; // angle related to the y axis
         this.velocity = 0;
         this.xPosition = this.initialX = initialX;
-        this.yPosition = this.initialY = initialY;
+        this.yPosition = this.initialY = groundHeight + 3; // for the bird to be 3 units above the ground
         this.zPosition = this.initialZ = initialZ;
+
 
         // when the bird is going down and up, it travels twice its initial y distance
         // (once going down, once going up). Therefore, in order for this movement
         // to last 2 seconds, the fall velocity should be equal to the bird's initial
         // y position.
-        this.fallVelocity = this.initialY - 4.5;
+        this.fallVelocity = this.initialY - this.groundHeight;
 
         this.innerWingAnimAngle = 0;
         this.innerWingAnimAmp = 0.8;
@@ -158,7 +161,7 @@ class MyBird extends CGFobject {
         else if(this.currentState == this.states.GOING_UP)
             this.yPosition += offset;
 
-        if(this.currentState == this.states.GOING_DOWN && this.yPosition < 4.5) { // bird reached the ground
+        if(this.currentState == this.states.GOING_DOWN && this.yPosition < this.groundHeight) { // bird reached the ground
             this.currentState = this.states.GOING_UP;
             if(this.branch == null)
                 this.scene.verifyBranchCollisions(this);
@@ -339,7 +342,7 @@ class MyBird extends CGFobject {
 
         if(this.branch != null) {
             this.scene.pushMatrix();
-            this.scene.translate(0, -0.15, 1.1 * this.birdSize * this.scaleFactor);
+            this.scene.translate(0, -this.branch.radius, 1.1 * this.birdSize * this.scaleFactor);
             this.branch.display();
             this.scene.popMatrix();
         }
