@@ -95,9 +95,9 @@ class MyScene extends CGFscene {
         this.generateLightning(); // initial L system generation
 
         this.treeAxiom = "X";
-        this.treeAngle = 30.0;
-        this.treeIterations = 4;
-        this.treeScaleFactor = 0.45;
+        this.treeAngle = 35.0;
+        this.treeIterations = 5;
+        this.treeScaleFactor = 0.60;
         
         this.trees = [];
 

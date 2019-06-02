@@ -3,8 +3,8 @@ class MyBranch extends CGFobject {
     constructor(scene) {
         super(scene);
 
-        this.length = 4;
-        this.width = 1.5;
+        this.length = 1.5;
+        this.width = 0.75;
 
         this.cilinder = new MyCylinder(scene, 8);
         this.init();
