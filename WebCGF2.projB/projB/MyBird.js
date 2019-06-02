@@ -235,7 +235,7 @@ class MyBird extends CGFobject {
         
         this.scene.rotate(this.innerWingAnimAngle, 0, 0, 1);
 
-        this.scene.translate(0.75, 0, -0.7 - 0.6);
+        this.scene.translate(0.75, 0, -1.3);
         this.scene.scale(0.9, 0.9, 0.75);
         this.scene.rotate(Math.PI / 2, 1, 0, 0);
         this.innerWing.display();
@@ -248,7 +248,7 @@ class MyBird extends CGFobject {
         
         this.scene.rotate(-this.innerWingAnimAngle, 0, 0, 1);
 
-        this.scene.translate(-0.75, 0, -0.7 - 0.6);
+        this.scene.translate(-0.75, 0, -1.3);
         this.scene.scale(0.9, 0.9, 0.75);
         this.scene.rotate(Math.PI / 2, 1, 0, 0);
         this.innerWing.display();
@@ -261,7 +261,7 @@ class MyBird extends CGFobject {
         
         this.scene.rotate(-this.innerWingAnimAngle, 0, 0, 1);
 
-        this.scene.translate(-1.20, 0, -0.7 - 0.6);
+        this.scene.translate(-1.20, 0, -1.3);
      
         this.scene.rotate(this.outerWingAnimAngle, 0, 0, 1);
         
@@ -278,7 +278,7 @@ class MyBird extends CGFobject {
         
         this.scene.rotate(this.innerWingAnimAngle, 0, 0, 1);
 
-        this.scene.translate(1.20, 0, -0.7 - 0.6);
+        this.scene.translate(1.20, 0, -1.3);
         
         this.scene.rotate(-this.outerWingAnimAngle, 0, 0, 1);
         
@@ -303,7 +303,7 @@ class MyBird extends CGFobject {
         // Head
 
         this.scene.pushMatrix();
-        this.scene.translate(0, 0, 0.5 - 0.6);
+        this.scene.translate(0, 0, -0.1);
         this.head.display();
         this.scene.popMatrix();
 
@@ -312,7 +312,7 @@ class MyBird extends CGFobject {
 
         this.eyeMaterial.apply();
         this.scene.pushMatrix();
-        this.scene.translate(0.3, 0.25, 0.8 - 0.6);
+        this.scene.translate(0.3, 0.25, 0.2);
         this.eye.display();
         this.scene.popMatrix();
 
@@ -320,7 +320,7 @@ class MyBird extends CGFobject {
         // Eye #2
         
         this.scene.pushMatrix();
-        this.scene.translate(-0.3, 0.25, 0.8 - 0.6);
+        this.scene.translate(-0.3, 0.25, 0.2);
         this.eye.display();
         this.scene.popMatrix();
 
@@ -329,7 +329,7 @@ class MyBird extends CGFobject {
         
         this.beakMaterial.apply();
         this.scene.pushMatrix();
-        this.scene.translate(0, 0, 0.9 - 0.6);
+        this.scene.translate(0, 0, 0.3);
         this.scene.rotate(Math.PI / 4, 0, 0, 1);
         this.scene.rotate(Math.PI / 2, 1, 0, 0);
         this.scene.scale(0.2, 0.4, 0.2);
